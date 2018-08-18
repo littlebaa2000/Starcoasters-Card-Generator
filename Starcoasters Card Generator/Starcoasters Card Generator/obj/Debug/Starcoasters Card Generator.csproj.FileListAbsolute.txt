@@ -1,0 +1,15 @@
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe.config
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.pdb
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csprojAssemblyReference.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\MainWindow.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\App.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator_MarkupCompile.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator_MarkupCompile.lref
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\MainWindow.baml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.g.resources
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters_Card_Generator.Properties.Resources.resources
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.GenerateResource.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.exe
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.pdb
