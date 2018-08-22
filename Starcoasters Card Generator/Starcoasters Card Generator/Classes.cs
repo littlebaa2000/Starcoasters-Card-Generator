@@ -8,6 +8,13 @@ namespace Starcoasters_Card_Generator
 {
     class Classes
     {
+        //This is the template for an ability 
+        public class Ability
+        {
+            public string AbilityName;
+            public string AbilityTrigger;
+            public string AbilityEffect;
+        }
         //These are classes I will use for different objects in this program
         public class SetOverview
         {
@@ -36,7 +43,21 @@ namespace Starcoasters_Card_Generator
         public class CardDetail
         {
             // This One Will Hold The Details Of A Card While It Is Being Modified Or Saved To The Database
-
+            //The Cards Names
+            public string CardNamePrimary;
+            public string CardNameSecondary;
+            //The Card Stats
+            public int CardHP;
+            public int CardATK;
+            public int CardDEF;
+            //The Array Of card keywords
+            public string[] CardKeywords;
+            //The Array of Abilities
+            public Classes.Ability[] CardAbilities;
+            //Flavour Text
+            public string CardFlavour;
+            //Cards set number
+            public string CardCode;
         }
     }
 }

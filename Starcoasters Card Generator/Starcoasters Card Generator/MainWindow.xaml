@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starcoasters_Card_Generator"
         mc:Ignorable="d"
-        Title="Starcoasters Set Editor" Height="720" Width="1280" ResizeMode="CanMinimize">
+        Title="Starcoasters Set Editor" Height="720" Width="1280" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
         <!--Just Defining The Grid For Posistioning Purposes-->
         <Grid.ColumnDefinitions>
@@ -37,8 +37,8 @@
             </ListView>
         </ScrollViewer>
         <!--The Buttons that will contain the commands like Create, Edit and Delete-->
-        <Button x:Name="BTN_Edit" Grid.Column="1" Grid.Row="2" Content="Edit Set"/>
-        <Button x:Name="BTN_Delete" Grid.Column="2" Grid.Row="2" Content="Delete Set"/>
-        <Button x:Name="BTN_Create" Grid.Column="4" Grid.Row="2" Content="New Set"/>
+        <Button x:Name="BTN_Edit" Grid.Column="1" Grid.Row="2" Content="Edit Set" Click="BTN_Edit_Click"/>
+        <Button x:Name="BTN_Delete" Grid.Column="2" Grid.Row="2" Content="Delete Set" Click="BTN_Delete_Click"/>
+        <Button x:Name="BTN_Create" Grid.Column="4" Grid.Row="2" Content="New Set" Click="BTN_Create_Click"/>
     </Grid>
 </Window>

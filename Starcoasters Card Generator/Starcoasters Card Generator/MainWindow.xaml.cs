@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data.SQLite;
 
 namespace Starcoasters_Card_Generator
 {
@@ -23,6 +24,28 @@ namespace Starcoasters_Card_Generator
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BTN_Edit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BTN_Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BTN_Create_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //When The Window Starts, Connect to the database
+            Functions.DatabaseConnect();
+            
         }
     }
 }
