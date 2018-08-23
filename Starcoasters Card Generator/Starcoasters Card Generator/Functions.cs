@@ -43,7 +43,9 @@ namespace Starcoasters_Card_Generator
             }
             catch(Exception e)
             {
-                MessageBox.Show($"An error occured {e}");               
+                //If Something goes wrong show a message as to what went wrong and kill the application
+                MessageBox.Show($"An error occured {e}");
+                Application.Current.Shutdown();
             }
         }
     }

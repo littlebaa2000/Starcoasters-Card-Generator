@@ -8,5 +8,25 @@
         Title="SetCreatorDialogue" Height="150" Width="300" ResizeMode="NoResize">
     <Grid>
         <!--General Grid Defining Stuff-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--Text Boxes For Set Name And Preview Of Set Code-->
+        <TextBox x:Name="TBX_SetName" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" SpellCheck.IsEnabled="True" TextAlignment="Center" TextChanged="TBX_SetName_TextChanged"/>
+        <TextBlock x:Name="TBL_SetCodePreviewer" Grid.Column="1" Grid.Row="2" Text="Set Code: " TextAlignment="Right"/>
+        <TextBlock x:Name="TBL_SetCode" Grid.Column="2" Grid.Row="2" Text="xxxx" TextAlignment="Left"/>
+        <!--Buttons to Do Stuff like make a table of cancel-->
+        <Button x:Name="BTN_MakeSet" Grid.Column="1" Grid.Row="3" Content="Create" Click="BTN_MakeSet_Click"/>
+        <Button x:Name="BTN_Cancel" Grid.Column="2" Grid.Row="3" Content="Cancel" Click="BTN_Cancel_Click"/>
     </Grid>
 </Window>
