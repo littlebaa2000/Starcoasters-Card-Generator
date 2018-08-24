@@ -39,22 +39,13 @@ namespace Starcoasters_Card_Generator
                 string[] SplitName = TextboxContents.Split(' ');
                 //This String Holds The Set Code
                 string SetCode = "";
-                //Get the first letter of the first 4 words in the textbox
-                for(int i=0; i<4; i++)
+                //Get the first letter of each word in the textbox
+                foreach(string word in SplitName)
                 {
-                    //Only try and get something if the array index actually exists
-                    if (i < SplitName.Length - 1)
+                    //make sure the index actually exists
+                    if (word.Length > 0 && word[0].ToString() != "" && word[0].ToString() != " ")
                     {
-                        //Get the string in the array at i
-                        string Character = SplitName[i];
-                        //Get just the first letter of the word if its not null
-                        //TODO there is an error pertaining being outside the array bounds if the string starts with a space
-                        if(Character[i].ToString() != "")
-                        {
-                            Character = Character[0].ToString();
-                        }                        
-                        //Add the letter to the end of the set code
-                        SetCode += Character;
+                        SetCode += word[0];
                     }
                 }
                 //Make sure the set code is 4 characters long
@@ -101,18 +92,65 @@ namespace Starcoasters_Card_Generator
                 //Go through each of the rows the reader returns
                 while (SetCodeReader.Read())
                 {
-                    //Execute a query that selects the table so we can gather data from it
-                    string GetSetCode = $"SELECT * FROM {SetCodeReader["tbl_name"].ToString()}";
-                    SQLiteCommand GetTableCodeCommand = new SQLiteCommand(GetSetCode, Globals.GlobalVars.DatabaseConnection);
-                    SQLiteDataReader CodeReader = GetTableCodeCommand.ExecuteReader();
-                    //extracts the returned cards code and splits it into two part, the 4 letter code and the 4 digit number 
-                    string CodeToSplit = CodeReader["code"].ToString();
-                    string[] SplitCode = CodeToSplit.Split('-');
-                    //Compares the 4 letter code to the text generated before hand 
-                    if(TBL_SetCode.Text.ToString() == SplitCode[0].ToString())
+                    //make sure its not a system table
+                    bool Internaltable = false;
+                    if (SetCodeReader["name"].ToString().Contains("sqlite_"))
                     {
-                        ConflictFlag = true;
+                        Internaltable = true;
                     }
+                    if (Internaltable != true)
+                    {
+                        //Execute a query that selects the table so we can gather data from it
+                        string GetSetCode = $"SELECT * FROM {SetCodeReader["name"].ToString()}";
+                        SQLiteCommand GetTableCodeCommand = new SQLiteCommand(GetSetCode, Globals.GlobalVars.DatabaseConnection);
+                        SQLiteDataReader CodeReader = GetTableCodeCommand.ExecuteReader();
+                        if (CodeReader.Read())
+                        {
+                            //extracts the returned cards code and splits it into two part, the 4 letter code and the 4 digit number 
+                            string CodeToSplit = CodeReader["card_code"].ToString();
+                            string[] SplitCode = CodeToSplit.Split('-');
+                            //Compares the 4 letter code to the text generated before hand 
+                            if (TBL_SetCode.Text.ToString() == SplitCode[0].ToString())
+                            {
+                                ConflictFlag = true;
+                            }
+                        }
+                    }
+                }
+                //If there isnt a conflict with the setcode make the table with the name and code
+                if (ConflictFlag != true)
+                {
+                    //Get the Set Name and Setcode as varibles so it can be used in the make table command
+                    string SetName = TBX_SetName.Text.ToString();
+                    //remove whitespacing from the name cos SQL cant handle that shit
+                    SetName = SetName.Replace(' ','_');
+                    string SetCode = TBL_SetCode.Text.ToString();
+                    //Make the Command string, make a command, execute the command
+                    string MakeSetTable = $"CREATE TABLE {SetName}" +
+                        $"(id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        $"card_code VARCHAR NOT NULL," +
+                        $"name_primary VARCHAR NOT NULL," +
+                        $"name_secondary VARCHAR NOT NULL," +
+                        $"cost INTEGER NOT NULL," +
+                        $"hp INTEGER NOT NULL," +
+                        $"atk INTEGER NOT NULL," +
+                        $"def INTEGER NOT NULL," +
+                        $"keywords TEXT NOT NULL," +
+                        $"ability TEXT NOT NULL," +
+                        $"imagestring TEXT NOT NULL)";
+                    SQLiteCommand MakeTable = new SQLiteCommand(MakeSetTable, Globals.GlobalVars.DatabaseConnection);
+                    MakeTable.ExecuteNonQuery();
+                    //Add a single card to the table to avoid errors
+                    string InitialCardCommand = $"INSERT INTO {SetName} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, imagestring) VALUES ('{SetCode}-0001', 'Name', 'Name', 1, 1, 1, 1, 'Keyword', 'Ability', 'Imagestring')";
+                    SQLiteCommand InsertCard = new SQLiteCommand(InitialCardCommand, Globals.GlobalVars.DatabaseConnection);
+                    InsertCard.ExecuteNonQuery();
+                    //once the table is made close this window cos its done its job
+                    this.Close();
+                }
+                //if there is a conflict alert the user to it and continue on
+                else
+                {
+                    MessageBox.Show("The setcode generated by the name provided would conflict with the code of an existing set. Try and different name.");
                 }
             }
             catch(Exception ex)

@@ -30,7 +30,7 @@
                         <!--Each column will display a specific property of the set, its name, code and total number of cards-->
                         <GridViewColumn Header="Set Name" DisplayMemberBinding="{Binding SetName}"/>
                         <GridViewColumn Header="Set Code" DisplayMemberBinding="{Binding SetCode}"/>
-                        <GridViewColumn Header="Number Of Cards" DisplayMemberBinding="{Binding SetSize}"/>
+                        <GridViewColumn Header="Number Of Cards" DisplayMemberBinding="{Binding SetCount}"/>
                     </GridView>
                 </ListView.View>
 

@@ -32,10 +32,10 @@ namespace Starcoasters_Card_Generator
                     MessageBox.Show("Tim Clones destroyed the Database, rebuilding.");
                     //Make the database file and make a temporary connection to it
                     SQLiteConnection.CreateFile($"{ExecutablePathway}\\StarcoastersDatabase.db");
-                    SQLiteConnection TempConnection = new SQLiteConnection($"Data Source={ExecutablePathway}\\StarcoastersDatabase.db; Version=3;");
-                    TempConnection.Open();
+                    SQLiteConnection TempConnection = new SQLiteConnection($"Data Source={ExecutablePathway}\\StarcoastersDatabase.db; Version=3;");                    
                     //Set a database password for some arbitrary protection with a password i generated with an online keygen
                     TempConnection.SetPassword("KHPJ6SJaT5YPeLmL");
+                    TempConnection.Open();
                     //Close the temporary connection then try this again
                     TempConnection.Close();
                     DatabaseConnect();
