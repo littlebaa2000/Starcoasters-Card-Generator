@@ -42,8 +42,8 @@ namespace Starcoasters_Card_Generator
                 //Get the first letter of each word in the textbox
                 foreach(string word in SplitName)
                 {
-                    //make sure the index actually exists
-                    if (word.Length > 0 && word[0].ToString() != "" && word[0].ToString() != " ")
+                    //make sure the index actually exists and the set code isnt already too long
+                    if (word.Length > 0 && word[0].ToString() != "" && word[0].ToString() != " " && SetCode.Length < 4)
                     {
                         SetCode += word[0];
                     }
@@ -68,14 +68,14 @@ namespace Starcoasters_Card_Generator
                     {
                         SetCode += "x";
                     }
-                }
+                }               
                 //Once the string is at 4 characters convert it all to lower case and set the text to it
                 TBL_SetCode.Text = SetCode.ToLowerInvariant();
             }
             catch (Exception ex)
             {
+                //Something went wrong but the outer catch handles it else something explodes
                 MessageBox.Show($"An Error Occured {ex}");
-                Application.Current.Shutdown();
             }
         }
 
@@ -124,6 +124,8 @@ namespace Starcoasters_Card_Generator
                     string SetName = TBX_SetName.Text.ToString();
                     //remove whitespacing from the name cos SQL cant handle that shit
                     SetName = SetName.Replace(' ','_');
+                    //remove special characters cos SQL also cant handle this shit (fuckin Crona)
+                    SetName = SetName.Replace('-', '_').Replace('&','_');
                     string SetCode = TBL_SetCode.Text.ToString();
                     //Make the Command string, make a command, execute the command
                     string MakeSetTable = $"CREATE TABLE {SetName}" +
@@ -155,6 +157,7 @@ namespace Starcoasters_Card_Generator
             }
             catch(Exception ex)
             {
+                // What went wrong? Better kill it before it breeds.
                 MessageBox.Show($"An Error Occured {ex}");
                 Application.Current.Shutdown();
             }

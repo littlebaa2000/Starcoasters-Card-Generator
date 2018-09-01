@@ -59,9 +59,15 @@ namespace Starcoasters_Card_Generator
                         {
                             SetSize++;
                         }
-                        // Shove all the data just gathered into a Set Overview, and put that set overview into a list item which is then added to the listview 
+                        // Shove all the data just gathered into a Set Overview
                         Classes.SetOverview SetData = new Classes.SetOverview { SetName = SetReader["name"].ToString(), SetCode = TempCode, SetCount = SetSize };
-                        LIV_SetList.Items.Add(SetData);
+                        //Make a list view item to store this data as a tag
+                        ListViewItem SetItem = new ListViewItem();
+                        SetItem.Tag = SetData;
+                        //also make the set data the item so it displays properly
+                        SetItem.Content = SetData;
+                        //Add the item to the listview
+                        LIV_SetList.Items.Add(SetItem);
                     }
                 }
             }
@@ -80,12 +86,61 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_Edit_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                //Extract the listview item that is selected
+                if(LIV_SetList.SelectedItem != null)
+                {
+                    //extract the listview item from the listview
+                    ListViewItem SelectedItem = (ListViewItem)LIV_SetList.SelectedItem;
+                    //Get the SetOverview from the listview item
+                    Classes.SetOverview SelectedSet = (Classes.SetOverview)SelectedItem.Tag;
+                    //extract the name from the SetOverview
+                    string SelectedSetName = SelectedSet.SetName;
+                    //make a new Setviewer window passing it the set name extracted above
+                    SetViewer SetViewer = new SetViewer(SelectedSetName);
+                    SetViewer.ShowDialog();
+                }
+                else
+                {
+                    // if they havent selected anything just return the function
+                    return;
+                }                
+            }
+            catch(Exception ex)
+            {
+                // If something goes wrong somehow show an error explaining what went wrong then kill the application
+                MessageBox.Show($"An error occured {ex}");
+                Application.Current.Shutdown();
+            }
+            UpdateSetList();
         }
 
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                //Make sure there is an item selected to delete
+                if (LIV_SetList.SelectedItem != null)
+                {
+                    //Extract the List Item from the listview
+                    ListViewItem SelectedItem = (ListViewItem)LIV_SetList.SelectedItem;
+                    //Extract the set overview from the listview item
+                    Classes.SetOverview SetToDelete = (Classes.SetOverview)SelectedItem.Tag;
+                    string TableToDelete = SetToDelete.SetName.ToString();
+                    //Query the table to drop it like its thot
+                    string TableDeleteQuery = $"DROP TABLE {TableToDelete}";
+                    SQLiteCommand DropTableCommand = new SQLiteCommand(TableDeleteQuery, Globals.GlobalVars.DatabaseConnection);
+                    DropTableCommand.ExecuteNonQuery();
+                }
+                UpdateSetList();
+            }
+            catch(Exception ex)
+            {
+                // If something goes wrong somehow show an error explaining what went wrong then kill the application
+                MessageBox.Show($"An error occured {ex}");
+                Application.Current.Shutdown();
+            }
         }
 
         private void BTN_Create_Click(object sender, RoutedEventArgs e)

@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starcoasters_Card_Generator"
         mc:Ignorable="d"
-        Title="SetViewer" Height="720" Width="1280" ResizeMode="CanMinimize">
+        Title="Set Viewer" Height="720" Width="1280" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
         <!--General Grid Defining Stuff-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.25*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.25*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="4.75*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.25*"/>
+        </Grid.RowDefinitions>
+        <!--The Scrollviewer with listview that will show all the cards in a given set-->
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5">
+            <ListView x:Name="LIV_CardList">
+                <ListView.View>
+                    <GridView>
+                        <!--Each Column holds a statistic of the card or a list of statistics-->
+                        <GridViewColumn Header="SetCode" DisplayMemberBinding="{Binding CardSetCode}"/>
+                        <GridViewColumn Header="Name (Primary)" DisplayMemberBinding="{Binding CardName}"/>
+                        <GridViewColumn Header="Name (Secondary)" DisplayMemberBinding="{Binding CardNameSecondary}"/>
+                        <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding CardCost}"/>
+                        <GridViewColumn Header="Species" DisplayMemberBinding="{Binding CardSpecies}"/>
+                        <GridViewColumn Header="HP" DisplayMemberBinding="{Binding CardHP}"/>
+                        <GridViewColumn Header="ATK" DisplayMemberBinding="{Binding CardATK}"/>
+                        <GridViewColumn Header="DEF" DisplayMemberBinding="{Binding CardDEF}"/>
+                        <GridViewColumn Header="No. Abilities" DisplayMemberBinding="{Binding CardAbilityCount}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+        <!--The Buttons that perform functions-->
+        <Button x:Name="BTN_Edit" Grid.Column="1" Grid.Row="2" Content="Edit Card"/>
+        <Button x:Name="BTN_Delete" Grid.Column="2" Grid.Row="2" Content="RemoveCard"/>
+        <Button x:Name="BTN_Add" Grid.Column="5" Grid.Row="2" Content="Add Card"/>
+
     </Grid>
 </Window>

@@ -31,12 +31,14 @@ namespace Starcoasters_Card_Generator
             public string CardName { get; set; }
             public string CardNameSecondary { get; set; }
             //Card cost and stats
-            public int CardCost { get; set; }
+            public string CardCost { get; set; }
             public int CardHP { get; set; }
             public int CardATK { get; set; }
             public int CardDEF { get; set; }
             //The number of abilities this card has
             public int CardAbilityCount { get; set; }
+            //The Cards Species
+            public string CardSpecies { get; set; }
             //The cards set code
             public string CardSetCode { get; set; }
         }
@@ -44,20 +46,21 @@ namespace Starcoasters_Card_Generator
         {
             // This One Will Hold The Details Of A Card While It Is Being Modified Or Saved To The Database
             //The Cards Names
-            public string CardNamePrimary;
-            public string CardNameSecondary;
+            public string CardNamePrimary { get; set; }
+            public string CardNameSecondary { get; set; }
             //The Card Stats
-            public int CardHP;
-            public int CardATK;
-            public int CardDEF;
+            public string CardCost { get; set; }
+            public int CardHP { get; set; }
+            public int CardATK { get; set; }
+            public int CardDEF { get; set; }
             //The Array Of card keywords
-            public string[] CardKeywords;
+            public string[] CardKeywords { get; set; }
             //The Array of Abilities
-            public Classes.Ability[] CardAbilities;
+            public Classes.Ability[] CardAbilities { get; set; }
             //Flavour Text
-            public string CardFlavour;
+            public string CardFlavour { get; set; }
             //Cards set number
-            public string CardCode;
+            public string CardCode { get; set; }
         }
     }
 }

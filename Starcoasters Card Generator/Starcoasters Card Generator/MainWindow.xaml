@@ -33,7 +33,6 @@
                         <GridViewColumn Header="Number Of Cards" DisplayMemberBinding="{Binding SetCount}"/>
                     </GridView>
                 </ListView.View>
-
             </ListView>
         </ScrollViewer>
         <!--The Buttons that will contain the commands like Create, Edit and Delete-->
