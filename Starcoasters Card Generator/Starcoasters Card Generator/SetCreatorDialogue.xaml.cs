@@ -133,17 +133,18 @@ namespace Starcoasters_Card_Generator
                         $"card_code VARCHAR NOT NULL," +
                         $"name_primary VARCHAR NOT NULL," +
                         $"name_secondary VARCHAR NOT NULL," +
-                        $"cost INTEGER NOT NULL," +
+                        $"cost VARCHAR NOT NULL," +
                         $"hp INTEGER NOT NULL," +
                         $"atk INTEGER NOT NULL," +
                         $"def INTEGER NOT NULL," +
                         $"keywords TEXT NOT NULL," +
                         $"ability TEXT NOT NULL," +
+                        $"flavour TEXT NOT NULL," +
                         $"imagestring TEXT NOT NULL)";
                     SQLiteCommand MakeTable = new SQLiteCommand(MakeSetTable, Globals.GlobalVars.DatabaseConnection);
                     MakeTable.ExecuteNonQuery();
                     //Add a single card to the table to avoid errors
-                    string InitialCardCommand = $"INSERT INTO {SetName} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, imagestring) VALUES ('{SetCode}-0001', 'Name', 'Name', 1, 1, 1, 1, 'Keyword', 'Ability', 'Imagestring')";
+                    string InitialCardCommand = $"INSERT INTO {SetName} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, flavour, imagestring) VALUES ('{SetCode}-0001', 'Name', 'Name', '1', 1, 1, 1, 'Keyword, Keyword', 'Ability', 'Flavour','Imagestring')";
                     SQLiteCommand InsertCard = new SQLiteCommand(InitialCardCommand, Globals.GlobalVars.DatabaseConnection);
                     InsertCard.ExecuteNonQuery();
                     //once the table is made close this window cos its done its job
