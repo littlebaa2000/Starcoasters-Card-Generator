@@ -47,6 +47,11 @@ namespace Starcoasters_Card_Generator
         {
             //first of all get the first open id value
             int OpenID = GetCleanIndex(SetToView);
+            //Now make a new card editor window passing it the set name and the the ID that was just determined and tell it that its a new card
+            CardEditor CardEditor = new CardEditor(SetToView, OpenID, true);
+            CardEditor.ShowDialog();
+            //Once the window is done with its thing make sure to update the set viewer list
+            UpdateCardList();
         }
 
         //Functions for the window

@@ -19,9 +19,17 @@ namespace Starcoasters_Card_Generator
     /// </summary>
     public partial class CardEditor : Window
     {
-        public CardEditor()
+        //these are varibles the whole window will need
+        public string CurrentSet;
+        public int CardID;
+        public bool CardNew;
+        public CardEditor(string SendingSet, int EmptyID, bool NewCard)
         {
             InitializeComponent();
+            //set the values of the necessary varibles
+            CurrentSet = SendingSet;
+            CardID = EmptyID;
+            CardNew = NewCard;
         }
     }
 }

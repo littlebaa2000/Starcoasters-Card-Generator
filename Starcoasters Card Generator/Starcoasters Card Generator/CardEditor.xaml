@@ -7,6 +7,85 @@
         mc:Ignorable="d"
         Title="CardEditor" Height="720" Width="1280" ResizeMode="CanMinimize">
     <Grid>
-        
+       <!-- As Usual Define The Grid -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <!--The Showstopper is first the third-of-a-page image preview-->
+        <Image x:Name="IMG_CardPreviewer" Grid.Column="0" Grid.Row="0" Grid.RowSpan="7"/>
+        <!--Next the textboxes that hold a cards name and subtitle along with their TextBlock labels-->
+        <TextBlock x:Name="TBL_CardNameLabel" Grid.Column="1" Grid.Row="0" Text="Name"/>
+        <TextBox x:Name="TBX_CardName" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="8"/>
+        <TextBlock x:Name="TBL_CardSubLabel" Grid.Column="1" Grid.Row="1" Text="Secondary Name"/>
+        <TextBox x:Name="TBX_CardSub" Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="8"/>
+        <!--Now The ComboBoxes for Keywords-->
+        <TextBlock x:Name="TBL_KeywordLabel" Grid.Column="1" Grid.Row="2" Text="Keywords"/>
+        <!--This One Defines The Type Of Card-->
+        <ComboBox x:Name="CMB_CardType" Grid.Column="2" Grid.Row="2">
+            <ComboBoxItem x:Name="CMBI_Character" Content="Character"/>
+            <ComboBoxItem x:Name="CMBI_MainCharacter" Content="Main Character"/>
+            <ComboBoxItem x:Name="CMBI_Equipment" Content="Equipment"/>
+            <ComboBoxItem x:Name="CMBI_Location" Content="Location"/>
+            <ComboBoxItem x:Name="CMBI_Event" Content="Event"/>
+        </ComboBox>
+        <!--These ones have their contents change based on the other drop down selected-->
+        <ComboBox x:Name="CMB_Form" Grid.Column="3" Grid.Row="2"/>
+        <ComboBox x:Name="CMB_Species" Grid.Column="4" Grid.Row="2"/>
+        <ComboBox x:Name="CMB_Gender" Grid.Column="5" Grid.Row="2"/>
+        <ComboBox x:Name="CMB_Affiliation" Grid.Column="6" Grid.Row="2"/>
+        <ComboBox x:Name="CMB_Class" Grid.Column="7" Grid.Row="2"/>
+        <ComboBox x:Name="CMB_Rules" Grid.Column="8" Grid.Row="2"/>
+        <!--The textbox that lets the edgelords add their own custom keywords to the end of the card-->
+        <TextBox x:Name="TBX_CustomKeyword" Grid.Column="9" Grid.Row="2" ToolTip="For all the edgelord custom keyword goodness"/>
+        <!--Now for all the card stat stuff-->
+        <TextBlock x:Name="TBL_CardCostLabel" Grid.Column="1" Grid.Row="3" Text="Cost"/>
+        <ComboBox x:Name="CMB_CostSelector" Grid.Column="2" Grid.Row="3">
+            <!--Since This Boxes contents dont change they just get defined here-->
+            <ComboBoxItem x:Name="CMBI_CostM" Content="M"/>
+            <ComboBoxItem x:Name="CMBI_Cost0" Content="0"/>
+            <ComboBoxItem x:Name="CMBI_Cost1" Content="1"/>
+            <ComboBoxItem x:Name="CMBI_Cost2" Content="2"/>
+            <ComboBoxItem x:Name="CMBI_Cost3" Content="3"/>
+            <ComboBoxItem x:Name="CMBI_Cost4" Content="4"/>
+            <ComboBoxItem x:Name="CMBI_Cost5" Content="5"/>
+            <ComboBoxItem x:Name="CMBI_Cost6" Content="6"/>
+            <ComboBoxItem x:Name="CMBI_Cost7" Content="7"/>
+            <ComboBoxItem x:Name="CMBI_Cost8" Content="8"/>
+            <ComboBoxItem x:Name="CMBI_Cost9" Content="9"/>
+            <ComboBoxItem x:Name="CMBI_Cost10" Content="10"/>
+            <ComboBoxItem x:Name="CMBI_Cost11" Content="11"/>
+            <ComboBoxItem x:Name="CMBI_Cost12" Content="12"/>
+        </ComboBox>
+        <!--Now for HP ATK and DEF-->
+        <TextBlock x:Name="TBL_HPLabel" Grid.Column="3" Grid.Row="3" Text="HP"/>
+        <TextBox x:Name="TBX_CardHP" Grid.Column="4" Grid.Row="3"/>
+        <TextBlock x:Name="TBL_ATKLabel" Grid.Column="5" Grid.Row="3" Text="ATK"/>
+        <TextBox x:Name="TBX_CardATK" Grid.Column="6" Grid.Row="3"/>
+        <TextBlock x:Name="TBL_DEFLabel" Grid.Column="7" Grid.Row="3" Text="DEF"/>
+        <TextBox x:Name="TBX_CardDEF" Grid.Column="8" Grid.Row="3"/>
+        <!--The Button that adds new abilities to the scrollviewer-->
+        <Button x:Name="BTN_AddAbility" Grid.Column="2" Grid.Row="4" Content="Add Ability"/>
+        <!--Scrollviewer holding the array of abilities-->
+        <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="9">
+            <!--TODO finish in here-->
+        </ScrollViewer>
     </Grid>
 </Window>
