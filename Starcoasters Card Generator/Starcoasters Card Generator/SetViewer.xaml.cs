@@ -25,11 +25,13 @@ namespace Starcoasters_Card_Generator
         {
             InitializeComponent();
             // Make sure the window gets the value that the other window passed to it
+            //This being the name of the table we are playing in
             SetToView = SelectedSet;            
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //When the window is loaded fill in the list
             UpdateCardList();
         }
 
@@ -40,6 +42,30 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)
         {
+            //Make sure there is actually something selected, if its empty just stop there
+            if(LIV_CardList.SelectedIndex < 0)
+            {
+                return;
+            }
+            try
+            {
+                //First extract the list view item from the list so we can use it
+                ListViewItem SelectedItem = (ListViewItem)LIV_CardList.SelectedItem;
+                //Get the card out of the selected items tag
+                Classes.CardOverview CardToDelete = (Classes.CardOverview)SelectedItem.Tag;
+                //Prepare an SQLITE query to delete the card we just selected
+                string DeleteCardQuery = $"DELETE FROM {SetToView} WHERE card_code = '{CardToDelete.CardSetCode}'";
+                //Execute the query
+                SQLiteCommand DeleteCardCommand = new SQLiteCommand(DeleteCardQuery, Globals.GlobalVars.DatabaseConnection);
+                DeleteCardCommand.ExecuteNonQuery();
+                //If all goes well, update the list to refelect the lack of the card
+                UpdateCardList();
+            }
+            catch(Exception ex)
+            {
+                //If something goes wrong somehow show an error explaining what went wrong then kill the application
+                MessageBox.Show($"An error occured {ex}");
+            }
 
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starcoasters_Card_Generator"
         mc:Ignorable="d"
-        Title="CardEditor" Height="720" Width="1280" ResizeMode="CanMinimize">
+        Title="CardEditor" Height="720" Width="1280" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid>
        <!-- As Usual Define The Grid -->
         <Grid.ColumnDefinitions>
@@ -28,9 +28,11 @@
             <RowDefinition/>
             <RowDefinition Height="3*"/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.75*"/>
         </Grid.RowDefinitions>
         <!--The Showstopper is first the third-of-a-page image preview-->
-        <Image x:Name="IMG_CardPreviewer" Grid.Column="0" Grid.Row="0" Grid.RowSpan="7"/>
+        <Image x:Name="IMG_CardPreviewer" Grid.Column="0" Grid.Row="0" Grid.RowSpan="9"/>
         <!--Next the textboxes that hold a cards name and subtitle along with their TextBlock labels-->
         <TextBlock x:Name="TBL_CardNameLabel" Grid.Column="1" Grid.Row="0" Text="Name"/>
         <TextBox x:Name="TBX_CardName" Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="8"/>
@@ -83,9 +85,22 @@
         <TextBox x:Name="TBX_CardDEF" Grid.Column="8" Grid.Row="3"/>
         <!--The Button that adds new abilities to the scrollviewer-->
         <Button x:Name="BTN_AddAbility" Grid.Column="2" Grid.Row="4" Content="Add Ability"/>
+        <!--As above but removing-->
+        <Button x:Name="BTN_RemoveAbility" Grid.Column="1" Grid.Row="4" Content="Remove Ability"/>
         <!--Scrollviewer holding the array of abilities-->
         <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="9">
-            <!--TODO finish in here-->
+            <StackPanel x:Name="STP_AbilityPanel"/>
         </ScrollViewer>
+        <!--The textbox that takes the cards flavour text-->
+        <TextBlock x:Name="TBL_FlavourTextLabel" Grid.Column="1" Grid.Row="6" Text="Flavour Text"/>
+        <TextBox x:Name="TBX_FlavourText" Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="8"/>
+        <!--The Textbox for the filepath of the image and a button to go looking-->
+        <TextBlock x:Name="TBL_ImagePathLabel" Grid.Column="1" Grid.Row="7" Text="Image Path"/>
+        <TextBox x:Name="TBX_ImagePath" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="7"/>
+        <!--And a button to let you use the file explorer like normal people do-->
+        <Button x:Name="BTN_ImagePathSearch" Grid.Column="9" Grid.Row="7" Content="Search"/>
+        <!--And the buttons for saving the card thus created or previewing what the card will look like-->
+        <Button x:Name="BTN_SaveCard" Grid.Column="9" Grid.Row="8" Content="Save Card"/>
+        <Button x:Name="BTN_PreviewCard" Grid.Column="8" Grid.Row="8" Content="Preview Card"/>
     </Grid>
 </Window>
