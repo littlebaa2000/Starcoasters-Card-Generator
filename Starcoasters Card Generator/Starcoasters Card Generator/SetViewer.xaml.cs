@@ -37,7 +37,37 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_Edit_Click(object sender, RoutedEventArgs e)
         {
+            //First off make sure there is actually something selected
+            if(LIV_CardList.SelectedIndex < 0)
+            {
+                return;
+            }
+            try
+            {
+                //Because SQLite uses a non zero array, a cards posistion in the database is equal to the number part of its 
+                //Card code so we get that first
+                //So get the selected item from the list
+                ListViewItem SelectedItem = (ListViewItem)LIV_CardList.SelectedItem;
+                //Pull the card in the tag from this
+                Classes.CardOverview TagCard = (Classes.CardOverview)SelectedItem.Tag;
+                //and get the full set code from it
+                string SetCode = TagCard.CardSetCode;
+                //Now get just the number from the end of this code
+                string[] CodeArray = SetCode.Split('-');
+                int CardArrayPlace = int.Parse(CodeArray[1].ToString());
+                //Now after all of that we have a value to give to the card viewer
+                CardEditor EditorWindow = new CardEditor(SetToView, CardArrayPlace, false);
+                EditorWindow.ShowDialog();
+                //Make sure this window has the right values once this editor returns
+                UpdateCardList();
+                
 
+            }
+            catch(Exception ex)
+            {
+                //If something goes wrong somehow show an error explaining what went wrong then kill the application
+                MessageBox.Show($"An error occured {ex}");
+            }
         }
 
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)
