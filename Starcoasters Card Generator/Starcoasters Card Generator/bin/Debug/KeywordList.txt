@@ -1,10 +1,19 @@
 #Character
 |CMB_Form
+Humanoid
+Furry
 |CMB_Species
+Human
+Karkakahn
 |CMB_Gender
+Male
+Female
 |CMB_Affiliation
+Foundation
 |CMB_Class
+Centurion
 |CMB_Rules
+Marksman
 #Main Character
 |CMB_Form
 |CMB_Species

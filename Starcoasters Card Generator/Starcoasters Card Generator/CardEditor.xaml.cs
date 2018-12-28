@@ -40,6 +40,22 @@ namespace Starcoasters_Card_Generator
         {
             try
             {
+                //Get the list of card types from a text file
+                string ExecutePath = System.IO.Directory.GetCurrentDirectory();
+                //assuming the file exists get its full contents
+                if (File.Exists($"{ExecutePath}\\CardTypes.txt"))
+                {
+                    string FullCardTypes = System.IO.File.ReadAllText($"{ExecutePath}\\CardTypes.txt");
+                    //split it up based on # deliminators into an array
+                    string[] CardTypes = FullCardTypes.Split(new char[] { '#' }, StringSplitOptions.RemoveEmptyEntries);
+                    // for each of these array elements make a combo box item for the first combo box
+                    foreach(string CardType in CardTypes)
+                    {                        
+                        ComboBoxItem item = new ComboBoxItem();
+                        item.Content = CardType.Trim();
+                        CMB_CardType.Items.Add(item);
+                    }
+                }
                 if(CardNew == false)
                 {
                     //Needed for passing to the combo box updater
@@ -79,6 +95,123 @@ namespace Starcoasters_Card_Generator
                         }
                         //Now update the rest of the combo boxes so that the rest of this code functions correctly
                         UpdateSubComboBoxes(TypeComboIndex);
+                        //Now loop through all the contents just updated and get the one used for each combo box
+                        //Start with CMB_Form
+                        for(int i =0; i<CMB_Form.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Form.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[1] == item.Content.ToString())
+                            {
+                                CMB_Form.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //Now CMB_Species
+                        for (int i = 0; i < CMB_Species.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Species.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[2] == item.Content.ToString())
+                            {
+                                CMB_Species.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //CMB_Gender                        
+                        for (int i = 0; i < CMB_Gender.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Gender.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[3] == item.Content.ToString())
+                            {
+                                CMB_Gender.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //CMB_Affiliation
+                        for (int i = 0; i < CMB_Affiliation.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Affiliation.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[4] == item.Content.ToString())
+                            {
+                                CMB_Affiliation.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //Now CMB_Class
+                        for (int i = 0; i < CMB_Class.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Class.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[5] == item.Content.ToString())
+                            {
+                                CMB_Class.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        //Lastly CMB_Rules
+                        for (int i = 0; i < CMB_Rules.Items.Count; i++)
+                        {
+                            //Get the item out of the combobox
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_Rules.Items.GetItemAt(i);
+                            //Get its contents and compare to the second Keyword, if it matches set the Combobox index to i and break the loop
+                            if (KeywordArray[6] == item.Content.ToString())
+                            {
+                                CMB_Rules.SelectedIndex = i;
+                                break;
+                            }
+                        }
+                        // And for any edgelords with a custom keyword
+                        TBX_CustomKeyword.Text = KeywordArray[7];
+                        //Now do the same as above for the cost box
+                        for(int i = 0; i < CMB_CostSelector.Items.Count; i++)
+                        {
+                            //as per normal get the item out of the combobox at i
+                            ComboBoxItem item = new ComboBoxItem();
+                            item = (ComboBoxItem)CMB_CostSelector.Items.GetItemAt(i);
+                            //if it matches whats in the cost column of the grabbed data
+                            if(item.Content.ToString() == GetCardReader["cost"].ToString())
+                            {
+                                // make the combobox match the current index
+                                CMB_CostSelector.SelectedIndex = i;
+                                //and break the loop since we are done here
+                                break;
+
+                            }
+                        }
+                        //now for the HP, ATK and DEF textboxes which are simple copies
+                        TBX_CardHP.Text = GetCardReader["hp"].ToString();
+                        TBX_CardATK.Text = GetCardReader["atk"].ToString();
+                        TBX_CardDEF.Text = GetCardReader["def"].ToString();
+                        //More substitution for the flavour text and image path by the same means
+                        TBX_FlavourText.Text = GetCardReader["flavour"].ToString();
+                        TBX_ImagePath.Text = GetCardReader["imagestring"].ToString();
+                        //Did the Abilities Last cos i hadnt figured out how to format them yet
+                        // put the full set of text into a string because its cleaner to type
+                        string AbilityString = GetCardReader["ability"].ToString();
+                        //Split it up based on commas as this is how I deliminated different abilities
+                        string[] AbilityArray = AbilityString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        // then for each ability they have make a new item in the stack panel
+                        foreach(string Ability in AbilityArray)
+                        {                            
+                            //Split the ability into its 3 parts of name , cost and effect
+                            string[] SplitAbility = Ability.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                            //Now make a listviewitem for this ability
+                            MakeAbilityBox(SplitAbility[0], SplitAbility[1], SplitAbility[2]);
+                        }
                     }
                 }
             }
@@ -92,7 +225,14 @@ namespace Starcoasters_Card_Generator
         public void UpdateSubComboBoxes(string TypeComboString)
         {
             //This basically just sees what type of card is selected in the first combo box and changes the contents of their collection based on a text file
-            //First of all get the filepath of the text file, this will be the same path as the executable file
+            //First clear all the existing combo boxes            
+            CMB_Form.Items.Clear();
+            CMB_Species.Items.Clear();
+            CMB_Gender.Items.Clear();
+            CMB_Affiliation.Items.Clear();
+            CMB_Class.Items.Clear();
+            CMB_Rules.Items.Clear();
+            //get the filepath of the text file, this will be the same path as the executable file
             string ExecutablePathway = System.IO.Directory.GetCurrentDirectory();
             //Make sure the file actually exists and if not create it
             if (File.Exists($"{ExecutablePathway}\\KeywordList.txt"))
@@ -101,24 +241,99 @@ namespace Starcoasters_Card_Generator
                 string FullKeywordText = System.IO.File.ReadAllText($"{ExecutablePathway}\\KeywordList.txt");
                 //next split the full set of text up based on the card type, these being deliminated by # and ignore the empty entry that seems to occur with the text file
                 string[] KeywordBlocks = FullKeywordText.Split(new char[] {'#'}, StringSplitOptions.RemoveEmptyEntries);
-                //now go through these blocks and compare them to the content of the first combo box stopping if the match is found and remember its index in the array
-                int ii = 0;               
+                //now go through these blocks and compare them to the content of the first combo box stopping if the match is found                            
                 foreach (string KeywordBlock in KeywordBlocks)
-                {
-                    if (KeywordBlock.Contains('#' + TypeComboString))
-                    {
+                {                    
+                    if (KeywordBlock.Contains(TypeComboString))
+                    {                       
                         //now we know what type of card this is (since we are in this code block) split up its paticular block of keywords into groups for each combobox
                         //Deliminated by |                        
                         string[] ComboKeywords = KeywordBlock.Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries);
+                        //Now split each seperate type up into its individual keywords and put them into their respective combo boxes
+                        //Start with the second combobox which holds the form keywords like humanoid
+                        string[] FormKeywords = ComboKeywords[1].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        //now for every entry in this list barring the first which just reads CMB_Form make a combo box item for it and add it to CMB_Form
+                        for(int i = 1; i< FormKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = FormKeywords[i].Trim();
+                            CMB_Form.Items.Add(item);
+                        }
+                        //Do the same for the other comboboxes Species, Gender, Affiliation, Class and Rules
+                        string[] SpeciesKeywords = ComboKeywords[2].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 1; i < SpeciesKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = SpeciesKeywords[i].Trim();
+                            CMB_Species.Items.Add(item);
+                        }
+                        string[] GenderKeywords = ComboKeywords[3].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 1; i < GenderKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = GenderKeywords[i].Trim();
+                            CMB_Gender.Items.Add(item);
+                        }
+                        string[] AffiliationKeywords = ComboKeywords[4].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 1; i < AffiliationKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = AffiliationKeywords[i].Trim();
+                            CMB_Affiliation.Items.Add(item);
+                        }
+                        string[] ClassKeywords = ComboKeywords[5].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 1; i < ClassKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = ClassKeywords[i].Trim();
+                            CMB_Class.Items.Add(item);
+                        }
+                        string[] RuleKeywords = ComboKeywords[6].Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                        for (int i = 1; i < RuleKeywords.Length; i++)
+                        {
+                            ComboBoxItem item = new ComboBoxItem();
+                            item.Content = RuleKeywords[i].Trim();
+                            CMB_Rules.Items.Add(item);
+                        }
+                        //then break the loop to avoid wasting clock cycles
                         break;
-                    }
-                    else
-                    {
-                        ii++;
-                    }
+                    }                    
                 }                
             }
 
+        }
+
+        private void CMB_CardType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                //Get the contents of the new selection then update all of the comboboxes to match the new card type
+                ComboBoxItem NewSelection = (ComboBoxItem)CMB_CardType.SelectedItem;
+                string NewSelectedType = NewSelection.Content.ToString();
+                //update the combo boxes giving it the new selection
+                UpdateSubComboBoxes(NewSelectedType);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show($"An error has occured \r\n {ex}");
+            }
+        }
+        public void MakeAbilityBox(string AbilName , string AbilCost , string AbilEffect)
+        {
+            //Makes a listview item and adds it to the ability list stack panel
+            ListViewItem item = new ListViewItem();
+            //and three text boxes for the ability one for name, cost and effect
+            TextBox TBX_Name = new TextBox();            
+            TBX_Name.Text = AbilName.Trim();
+            TextBox TBX_Cost = new TextBox();
+            TBX_Cost.Text = AbilCost.Trim();
+            TextBox TBX_Effect = new TextBox();
+            TBX_Effect.Text = AbilEffect.Trim();
+            //Put these text boxes into an array, make that array the listboxitems content 
+            TextBox[] Ability = new TextBox[] { TBX_Name, TBX_Cost, TBX_Effect };
+            item.Content = Ability;
+            //add item as a child of the stack panel
+            STP_AbilityPanel.Children.Add(item);
         }
     }
 }

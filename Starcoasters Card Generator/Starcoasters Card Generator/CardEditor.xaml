@@ -41,13 +41,7 @@
         <!--Now The ComboBoxes for Keywords-->
         <TextBlock x:Name="TBL_KeywordLabel" Grid.Column="1" Grid.Row="2" Text="Keywords"/>
         <!--This One Defines The Type Of Card-->
-        <ComboBox x:Name="CMB_CardType" Grid.Column="2" Grid.Row="2">
-            <ComboBoxItem x:Name="CMBI_Character" Content="Character"/>
-            <ComboBoxItem x:Name="CMBI_MainCharacter" Content="Main Character"/>
-            <ComboBoxItem x:Name="CMBI_Equipment" Content="Equipment"/>
-            <ComboBoxItem x:Name="CMBI_Location" Content="Location"/>
-            <ComboBoxItem x:Name="CMBI_Event" Content="Event"/>
-        </ComboBox>
+        <ComboBox x:Name="CMB_CardType" Grid.Column="2" Grid.Row="2" SelectionChanged="CMB_CardType_SelectionChanged"/>
         <!--These ones have their contents change based on the other drop down selected-->
         <ComboBox x:Name="CMB_Form" Grid.Column="3" Grid.Row="2"/>
         <ComboBox x:Name="CMB_Species" Grid.Column="4" Grid.Row="2"/>
