@@ -78,12 +78,12 @@
         <TextBlock x:Name="TBL_DEFLabel" Grid.Column="7" Grid.Row="3" Text="DEF"/>
         <TextBox x:Name="TBX_CardDEF" Grid.Column="8" Grid.Row="3"/>
         <!--The Button that adds new abilities to the scrollviewer-->
-        <Button x:Name="BTN_AddAbility" Grid.Column="2" Grid.Row="4" Content="Add Ability"/>
+        <Button x:Name="BTN_AddAbility" Grid.Column="2" Grid.Row="4" Content="Add Ability" Click="BTN_AddAbility_Click"/>
         <!--As above but removing-->
-        <Button x:Name="BTN_RemoveAbility" Grid.Column="1" Grid.Row="4" Content="Remove Ability"/>
+        <Button x:Name="BTN_RemoveAbility" Grid.Column="1" Grid.Row="4" Content="Remove Ability" Click="BTN_RemoveAbility_Click"/>
         <!--Scrollviewer holding the array of abilities-->
         <ScrollViewer Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="9">
-            <StackPanel x:Name="STP_AbilityPanel"/>
+            <ListView x:Name="LIV_AbilityPanel"/>
         </ScrollViewer>
         <!--The textbox that takes the cards flavour text-->
         <TextBlock x:Name="TBL_FlavourTextLabel" Grid.Column="1" Grid.Row="6" Text="Flavour Text"/>

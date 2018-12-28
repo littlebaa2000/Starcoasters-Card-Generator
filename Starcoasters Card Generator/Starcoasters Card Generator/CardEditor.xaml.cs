@@ -329,11 +329,31 @@ namespace Starcoasters_Card_Generator
             TBX_Cost.Text = AbilCost.Trim();
             TextBox TBX_Effect = new TextBox();
             TBX_Effect.Text = AbilEffect.Trim();
-            //Put these text boxes into an array, make that array the listboxitems content 
-            TextBox[] Ability = new TextBox[] { TBX_Name, TBX_Cost, TBX_Effect };
-            item.Content = Ability;
-            //add item as a child of the stack panel
-            STP_AbilityPanel.Children.Add(item);
+            //Make a stackpanel and put the textboxes in it
+            StackPanel cnt = new StackPanel();
+            cnt.Children.Add(TBX_Name);
+            cnt.Children.Add(TBX_Cost);
+            cnt.Children.Add(TBX_Effect);
+            item.Content = cnt;
+            //add item as a child of the stack panel in the XAML
+            LIV_AbilityPanel.Items.Add(item);
+        }
+
+        private void BTN_AddAbility_Click(object sender, RoutedEventArgs e)
+        {
+            //This simply adds another ability box to the list view by calling
+            //the Make Ability Box with a set of dummy text
+            MakeAbilityBox("Name", "Cost", "Effects");
+        }
+
+        private void BTN_RemoveAbility_Click(object sender, RoutedEventArgs e)
+        {
+            //This removes the selected list box item
+            //so long as you have something selected in the abilities table list box anyway
+            if(LIV_AbilityPanel.SelectedIndex >= 0)
+            {
+                LIV_AbilityPanel.Items.RemoveAt(LIV_AbilityPanel.SelectedIndex);
+            }
         }
     }
 }
