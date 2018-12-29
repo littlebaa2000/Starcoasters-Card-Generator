@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.IO;
+using Microsoft.Win32;
 
 namespace Starcoasters_Card_Generator
 {
@@ -27,13 +28,14 @@ namespace Starcoasters_Card_Generator
         public bool CardNew;
         //This one is specifically for generating a card code thats displayed on the card
         public string CardCode;
-        public CardEditor(string SendingSet, int UsedID, bool NewCard)
+        public CardEditor(string SendingSet, int UsedID, bool NewCard, string SetCode)
         {
             InitializeComponent();
             //set the values of the necessary varibles
             CurrentSet = SendingSet;
             CardID = UsedID;
             CardNew = NewCard;
+            CardCode = SetCode;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -354,6 +356,122 @@ namespace Starcoasters_Card_Generator
             {
                 LIV_AbilityPanel.Items.RemoveAt(LIV_AbilityPanel.SelectedIndex);
             }
+        }
+
+        private void BTN_ImagePathSearch_Click(object sender, RoutedEventArgs e)
+        {
+            //This lets the user choose what image is used for this paticular card, getting its file path
+            OpenFileDialog ImageSelector = new OpenFileDialog();
+            //Filter it to just show image files, ones i like anyway
+            ImageSelector.Filter = "Image Files (*.png, *.jpg, *.bmp)| *.jpg; *.png; *.bmp;";
+            //since you will only ever need one image file disable multiselect
+            ImageSelector.Multiselect = false;
+            ImageSelector.ShowDialog();
+            //now if they select a file get its path and set the image path textbox to it
+            if(ImageSelector.FileName != null)
+            {
+                TBX_ImagePath.Text = ImageSelector.FileName.ToString();                
+            }
+        }
+
+        private void BTN_SaveCard_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Get the values are write them back into the database for future perusal, then close the window
+                // First of all get the Primary and Secondary Names from the name textboxes
+                string CardNamePrimary = TBX_CardName.Text;
+                string CardNameSub = TBX_CardSub.Text;
+                //Now for the awful bit, getting the keywords from the various combo boxes
+                string KeywordsString = "";
+                // Start with the card type
+                KeywordsString += GetComboboxText(CMB_CardType);
+                // and for the rest
+                KeywordsString += ", " + GetComboboxText(CMB_Form);
+                KeywordsString += ", " + GetComboboxText(CMB_Species);
+                KeywordsString += ", " + GetComboboxText(CMB_Gender);
+                KeywordsString += ", " + GetComboboxText(CMB_Affiliation);
+                KeywordsString += ", " + GetComboboxText(CMB_Class);
+                KeywordsString += ", " + GetComboboxText(CMB_Rules);
+                //Lastly just add whatever is in the custom keyword textbox
+                KeywordsString += ", " + TBX_CustomKeyword.Text;
+                //Now for the card cost
+                string CardCostString = GetComboboxText(CMB_CostSelector);
+                //Now for Hp, ATK and DEF
+                string CardHP = TBX_CardHP.Text;
+                string CardATK = TBX_CardATK.Text;
+                string CardDEF = TBX_CardDEF.Text;
+                //Now for the abilities
+                string Abilities = "";
+                for(int i =0; i<LIV_AbilityPanel.Items.Count; i++)
+                {
+                    //First of all get the list view item
+                    ListViewItem item = (ListViewItem)LIV_AbilityPanel.Items.GetItemAt(i);
+                    //now pull the stack panel out of the listview item
+                    StackPanel panel = (StackPanel)item.Content;
+                    string abilitytext = "";
+                    //now get the 3 textboxes out of the stackpanel
+                    foreach(TextBox box in panel.Children)
+                    {
+                        abilitytext += box.Text + ":";
+                    }
+                    Abilities += abilitytext + ",";
+                }
+                // now just for the flavour text and filepath for the image
+                string FlavourString = TBX_FlavourText.Text;
+                string FilepathString = TBX_ImagePath.Text;
+                //now to make an sqlite query and update the table
+                //The query differs depending on if you are updating a card or adding a new one
+                string SaveCardQuery = "";
+                if (CardNew == true)
+                {
+                    //just to add consistency to the card code values
+                    string CardIDString = null;
+                    //check values for the ID, adding zeroes as needed
+                    if(CardID < 9)
+                    {
+                        CardIDString = "000" + CardID;
+                    }
+                    else if (CardID < 100)
+                    {
+                        CardIDString = "00" + CardID;
+                    }
+                    else if (CardID < 1000)
+                    {
+                        CardIDString = "0" + CardID;
+                    }
+                    else
+                    {
+                        CardIDString = CardID.ToString();
+                    }
+                    SaveCardQuery = $"INSERT INTO {CurrentSet} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, flavour, imagestring)" +
+                    $"VALUES ('{CardCode}-{CardIDString}', '{CardNamePrimary}', '{CardNameSub}', '{CardCostString}', '{CardHP}', '{CardATK}', '{CardDEF}', '{KeywordsString}', " +
+                    $"'{Abilities}', '{FlavourString}', '{FilepathString}')";
+                }
+                else
+                {
+                    SaveCardQuery = $"UPDATE {CurrentSet} SET name_primary = '{CardNamePrimary}', name_secondary = '{CardNameSub}', cost = '{CardCostString}', hp = '{CardHP}', " +
+                        $"atk = '{CardATK}', def = '{CardDEF}', keywords = '{KeywordsString}', ability = '{Abilities}', flavour = '{FlavourString}', imagestring =' {FilepathString}'" +
+                        $" WHERE id = {CardID}";
+                }
+                SQLiteCommand SaveCardCommand = new SQLiteCommand(SaveCardQuery, Globals.GlobalVars.DatabaseConnection);
+                SaveCardCommand.ExecuteNonQuery();
+                // now this is done the window can close
+                this.Close();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occured {ex}");                
+            }
+
+        }
+        private string GetComboboxText(ComboBox item)
+        {
+            ComboBoxItem SelectedItem = (ComboBoxItem)item.SelectedItem;
+            //Get the text from this item
+            string Words = SelectedItem.Content.ToString();
+            return Words;
         }
     }
 }

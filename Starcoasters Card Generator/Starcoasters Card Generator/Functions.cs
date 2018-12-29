@@ -48,5 +48,10 @@ namespace Starcoasters_Card_Generator
                 Application.Current.Shutdown();
             }
         }
+        public static byte[] GenerateCardImage()
+        {
+            return null;
+        }
+        
     }
 }

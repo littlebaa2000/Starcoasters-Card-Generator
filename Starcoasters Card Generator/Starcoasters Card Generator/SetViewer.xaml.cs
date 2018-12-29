@@ -56,7 +56,7 @@ namespace Starcoasters_Card_Generator
                 string[] CodeArray = SetCode.Split('-');
                 int CardArrayPlace = int.Parse(CodeArray[1].ToString());
                 //Now after all of that we have a value to give to the card viewer
-                CardEditor EditorWindow = new CardEditor(SetToView, CardArrayPlace, false);
+                CardEditor EditorWindow = new CardEditor(SetToView, CardArrayPlace, false, CodeArray[0]);
                 EditorWindow.ShowDialog();
                 //Make sure this window has the right values once this editor returns
                 UpdateCardList();
@@ -103,8 +103,20 @@ namespace Starcoasters_Card_Generator
         {
             //first of all get the first open id value
             int OpenID = GetCleanIndex(SetToView);
+            //Execute a query that selects the table so we can gather data from it
+            string GetSetCode = $"SELECT * FROM {SetToView}";
+            SQLiteCommand GetTableCodeCommand = new SQLiteCommand(GetSetCode, Globals.GlobalVars.DatabaseConnection);
+            SQLiteDataReader CodeReader = GetTableCodeCommand.ExecuteReader();
+            //Similiar to what happens in Main Window, extract the card code from it and pass that to the card editor
+            string CardCode = "";
+            if (CodeReader.Read())
+            {
+                string CodeToSplit = CodeReader["card_code"].ToString();
+                string[] SplitCode = CodeToSplit.Split('-');
+                CardCode = SplitCode[0].ToString();
+            }
             //Now make a new card editor window passing it the set name and the the ID that was just determined and tell it that its a new card
-            CardEditor CardEditor = new CardEditor(SetToView, OpenID, true);
+            CardEditor CardEditor = new CardEditor(SetToView, OpenID, true, CardCode);
             CardEditor.ShowDialog();
             //Once the window is done with its thing make sure to update the set viewer list
             UpdateCardList();
