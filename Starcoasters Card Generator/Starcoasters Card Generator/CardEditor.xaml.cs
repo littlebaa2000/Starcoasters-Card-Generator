@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.IO;
 using Microsoft.Win32;
+using System.Drawing;
 
 namespace Starcoasters_Card_Generator
 {
@@ -472,6 +473,13 @@ namespace Starcoasters_Card_Generator
             //Get the text from this item
             string Words = SelectedItem.Content.ToString();
             return Words;
+        }
+
+        private void BTN_PreviewCard_Click(object sender, RoutedEventArgs e)
+        {
+            Bitmap map = Functions.GenerateCardImage(TBX_ImagePath.Text);
+            BitmapSource preview = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(map.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(map.Width, map.Height));
+            IMG_CardPreviewer.Source = preview;
         }
     }
 }
