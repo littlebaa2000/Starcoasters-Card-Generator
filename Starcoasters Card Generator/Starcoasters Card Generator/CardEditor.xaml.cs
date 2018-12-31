@@ -377,6 +377,12 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_SaveCard_Click(object sender, RoutedEventArgs e)
         {
+            //Save the card then close the window
+            SaveCard();
+            this.Close();
+        }
+        public void SaveCard()
+        {
             try
             {
                 // Get the values are write them back into the database for future perusal, then close the window
@@ -404,7 +410,7 @@ namespace Starcoasters_Card_Generator
                 string CardDEF = TBX_CardDEF.Text;
                 //Now for the abilities
                 string Abilities = "";
-                for(int i =0; i<LIV_AbilityPanel.Items.Count; i++)
+                for (int i = 0; i < LIV_AbilityPanel.Items.Count; i++)
                 {
                     //First of all get the list view item
                     ListViewItem item = (ListViewItem)LIV_AbilityPanel.Items.GetItemAt(i);
@@ -412,7 +418,7 @@ namespace Starcoasters_Card_Generator
                     StackPanel panel = (StackPanel)item.Content;
                     string abilitytext = "";
                     //now get the 3 textboxes out of the stackpanel
-                    foreach(TextBox box in panel.Children)
+                    foreach (TextBox box in panel.Children)
                     {
                         abilitytext += box.Text + ":";
                     }
@@ -429,7 +435,7 @@ namespace Starcoasters_Card_Generator
                     //just to add consistency to the card code values
                     string CardIDString = null;
                     //check values for the ID, adding zeroes as needed
-                    if(CardID < 9)
+                    if (CardID < 9)
                     {
                         CardIDString = "000" + CardID;
                     }
@@ -455,20 +461,18 @@ namespace Starcoasters_Card_Generator
                         $"atk = '{CardATK}', def = '{CardDEF}', keywords = '{KeywordsString}', ability = '{Abilities}', flavour = '{FlavourString}', imagestring =' {FilepathString}'" +
                         $" WHERE id = {CardID}";
                 }
+                //Now actually execute the query
                 SQLiteCommand SaveCardCommand = new SQLiteCommand(SaveCardQuery, Globals.GlobalVars.DatabaseConnection);
                 SaveCardCommand.ExecuteNonQuery();
-                // now this is done the window can close
-                this.Close();
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occured {ex}");                
+                MessageBox.Show($"An error occured {ex}");
             }
-
         }
         private string GetComboboxText(ComboBox item)
         {
+            //get the combobox item that is selected from the sent combobox
             ComboBoxItem SelectedItem = (ComboBoxItem)item.SelectedItem;
             //Get the text from this item
             string Words = SelectedItem.Content.ToString();
@@ -477,9 +481,15 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_PreviewCard_Click(object sender, RoutedEventArgs e)
         {
-            Bitmap map = Functions.GenerateCardImage(TBX_ImagePath.Text);
+            //Save the card first so the preview is as accurate as possible
+            SaveCard();
+            //Now get a bitmap generated for the card
+            Bitmap map = Functions.GenerateCardImage(CurrentSet,TBX_ImagePath.Text, CardID);
+            //Convert that bitmap to a bitmap source that can be displayed and display it
             BitmapSource preview = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(map.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(map.Width, map.Height));
             IMG_CardPreviewer.Source = preview;
+            //Cleaning up after myself
+            map.Dispose();
         }
     }
 }
