@@ -472,11 +472,18 @@ namespace Starcoasters_Card_Generator
         }
         private string GetComboboxText(ComboBox item)
         {
-            //get the combobox item that is selected from the sent combobox
-            ComboBoxItem SelectedItem = (ComboBoxItem)item.SelectedItem;
-            //Get the text from this item
-            string Words = SelectedItem.Content.ToString();
-            return Words;
+            //get the combobox item that is selected from the sent combobox assuming one is selected
+            if (item.SelectedItem != null)
+            {
+                ComboBoxItem SelectedItem = (ComboBoxItem)item.SelectedItem;
+                //Get the text from this item
+                string Words = SelectedItem.Content.ToString();
+                return Words;
+            }
+            else
+            {
+                return "placeholder";
+            }
         }
 
         private void BTN_PreviewCard_Click(object sender, RoutedEventArgs e)

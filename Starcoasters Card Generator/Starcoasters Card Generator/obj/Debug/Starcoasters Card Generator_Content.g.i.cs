@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/cardbackground.png")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/cardtextboxes.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("cardbackground.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("cardtextboxes.png")]
 
 
