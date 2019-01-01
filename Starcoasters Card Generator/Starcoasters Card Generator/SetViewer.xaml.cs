@@ -12,6 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data.SQLite;
+using System.Drawing;
+using System.IO;
+using Microsoft.Win32;
+
+
 
 namespace Starcoasters_Card_Generator
 {
@@ -73,8 +78,9 @@ namespace Starcoasters_Card_Generator
         private void BTN_Delete_Click(object sender, RoutedEventArgs e)
         {
             //Make sure there is actually something selected, if its empty just stop there
-            if(LIV_CardList.SelectedIndex < 0)
+            if(LIV_CardList.SelectedIndex < 0||LIV_CardList.Items.Count<2)
             {
+                MessageBox.Show("Either no item was selected or there is only one card left in the set");
                 return;
             }
             try
@@ -208,6 +214,24 @@ namespace Starcoasters_Card_Generator
             }
             //give them whatever value i ended up being
             return i;
+        }
+
+        private void BTN_ExportBleed_Click(object sender, RoutedEventArgs e)
+        {
+            //This one will export the cards as full bleed sized to print
+            Functions.ExportCards(SetToView, false, false);
+        }
+
+        private void BTN_ExportCropped_Click(object sender, RoutedEventArgs e)
+        {
+            //This one will export the cards as cropped size without the bleed
+            Functions.ExportCards(SetToView, true, false);
+        }
+
+        private void BTN_ExportVassal_Click(object sender, RoutedEventArgs e)
+        {
+            //This one will export the cards resized as vassal sized cards for Tabletop Sim
+            Functions.ExportCards(SetToView, true, true);
         }        
     }
 }

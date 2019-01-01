@@ -9,6 +9,8 @@ using System.Data.SQLite;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
+using System.Windows.Forms;
+using System.Drawing.Imaging;
 
 namespace Starcoasters_Card_Generator
 {
@@ -32,7 +34,7 @@ namespace Starcoasters_Card_Generator
                 else
                 {
                     //Warn that the database file doesnt exist
-                    MessageBox.Show("Tim Clones destroyed the Database, rebuilding.");
+                    System.Windows.MessageBox.Show("Tim Clones destroyed the Database, rebuilding.");
                     //Make the database file and make a temporary connection to it
                     SQLiteConnection.CreateFile($"{ExecutablePathway}\\StarcoastersDatabase.db");
                     SQLiteConnection TempConnection = new SQLiteConnection($"Data Source={ExecutablePathway}\\StarcoastersDatabase.db; Version=3;");                    
@@ -47,8 +49,8 @@ namespace Starcoasters_Card_Generator
             catch(Exception e)
             {
                 //If Something goes wrong show a message as to what went wrong and kill the application
-                MessageBox.Show($"An error occured {e}");
-                Application.Current.Shutdown();
+                System.Windows.MessageBox.Show($"An error occured {e}");
+                System.Windows.Application.Current.Shutdown();
             }
         }
         public static Bitmap GenerateCardImage(string CardSet, string ArtPath, int CardIndex)
@@ -221,17 +223,346 @@ namespace Starcoasters_Card_Generator
                         //Now Draw
                         graphics.DrawString(CardSecondaryNameString, SecondaryNameFont, Brushes.Black, (int)463 - TextWidth / 2, (int)199 - TextHeight / 2);
                     }
+                    //Now for keywords
+                    string KeywordsString = GetCardToRenderReader["keywords"].ToString();
+                    Font KeywordsFont = new Font("Classic Robot Condensed", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                    FontSize = 48;
+                    TextWidth = 10000;
+                    TextHeight = 10000;
+                    while (TextWidth > 580 || TextHeight > 50)
+                    {
+                        //Bitmap to draw on
+                        Bitmap KeywordsBitmap = new Bitmap(580, 50);
+                        Graphics g = Graphics.FromImage(KeywordsBitmap);
+                        //make the font match
+                        KeywordsFont = new Font("Classic Robot Condensed", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                        SizeF KeywordSize = g.MeasureString(KeywordsString, KeywordsFont);
+                        TextWidth = (int)KeywordSize.Width;
+                        TextHeight = (int)KeywordSize.Height;
+                        //if its too big shrink the font size and roll again
+                        if (TextWidth > 580 || TextHeight > 50)
+                        {
+                            FontSize--;
+                        }
+                    }
+                    //Now draw the keywords in
+                    using(Graphics graphics = Graphics.FromImage(CardBitmap))
+                    {
+                        //first set some niceties to make the font look nice
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        //Now Draw
+                        graphics.DrawString(KeywordsString, KeywordsFont, Brushes.Black, (int)414 - TextWidth / 2, (int)678 - TextHeight / 2);
+                    }
+                    //Now for HP,ATK and DEF
+                    string CardHP = GetCardToRenderReader["hp"].ToString();
+                    string CardATK = GetCardToRenderReader["atk"].ToString();
+                    string CardDEF = GetCardToRenderReader["def"].ToString();
+                    FontSize = 60;
+                    TextWidth = 10000;
+                    TextHeight = 10000;
+                    //since all the stats are written in the same font only one needs to be made
+                    Font StatFont = new Font("Downlink", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                    while (TextWidth > 90 || TextHeight > 90)
+                    {
+                        //Bitmap to draw on
+                        Bitmap StatBitmap = new Bitmap(90, 90);
+                        Graphics g = Graphics.FromImage(StatBitmap);
+                        StatFont = new Font("Downlink", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                        SizeF StatSize = g.MeasureString(CardHP, StatFont);
+                        TextWidth = (int)StatSize.Width;
+                        TextHeight = (int)StatSize.Height;
+                        if (TextWidth > 90 || TextHeight > 90)
+                        {
+                            FontSize--;
+                        }
+                    }
+                    //now draw HP
+                    using(Graphics graphics = Graphics.FromImage(CardBitmap))
+                    {
+                        //first set some niceties to make the font look nice
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        //Now Draw
+                        graphics.DrawString(CardHP, StatFont, Brushes.Black, (int)167 - TextWidth / 2, (int)759 - TextHeight / 2);
+                    }
+                    //ATK
+                    FontSize = 60;
+                    TextWidth = 10000;
+                    TextHeight = 10000;
+                    while (TextWidth > 90 || TextHeight > 90)
+                    {
+                        //Bitmap to draw on
+                        Bitmap StatBitmap = new Bitmap(90, 90);
+                        Graphics g = Graphics.FromImage(StatBitmap);
+                        StatFont = new Font("Downlink", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                        SizeF StatSize = g.MeasureString(CardATK, StatFont);
+                        TextWidth = (int)StatSize.Width;
+                        TextHeight = (int)StatSize.Height;
+                        if (TextWidth > 90 || TextHeight > 90)
+                        {
+                            FontSize--;
+                        }
+                    }
+                    //now draw ATK
+                    using (Graphics graphics = Graphics.FromImage(CardBitmap))
+                    {
+                        //first set some niceties to make the font look nice
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        //Now Draw
+                        graphics.DrawString(CardATK, StatFont, Brushes.Black, (int)167 - TextWidth / 2, (int)859 - TextHeight / 2);
+                    }
+                    //DEF
+                    FontSize = 60;
+                    TextWidth = 10000;
+                    TextHeight = 10000;
+                    while (TextWidth > 90 || TextHeight > 90)
+                    {
+                        //Bitmap to draw on
+                        Bitmap StatBitmap = new Bitmap(90, 90);
+                        Graphics g = Graphics.FromImage(StatBitmap);
+                        StatFont = new Font("Downlink", FontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                        SizeF StatSize = g.MeasureString(CardDEF, StatFont);
+                        TextWidth = (int)StatSize.Width;
+                        TextHeight = (int)StatSize.Height;
+                        if (TextWidth > 90 || TextHeight > 90)
+                        {
+                            FontSize--;
+                        }
+                    }
+                    //now draw DEF
+                    using (Graphics graphics = Graphics.FromImage(CardBitmap))
+                    {
+                        //first set some niceties to make the font look nice
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        //Now Draw
+                        graphics.DrawString(CardDEF, StatFont, Brushes.Black, (int)167 - TextWidth / 2, (int)959 - TextHeight / 2);
+                    }
+                    //Onceagain abilities are assholes and need lots of loops and special code to be drawn
+                    TextWidth = 10000;
+                    TextHeight = 10000;
+                    int AbilityNameFontSize = 24;
+                    int AbilityCostFontSize = 18;
+                    FontSize = 16;
+                    //3 Fonts are needed here
+                    Font AbilityNameFont = new Font("Classic Robot Condensed", AbilityNameFontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                    Font AbilityCostFont = new Font("Classic Robot Condensed", AbilityCostFontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel);
+                    Font AbilityBodyFont = new Font("Classic Robot Condensed", FontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel);
+                    //This is to determine the Y value of the given abilities top left corner as it will vary based on the number of abilities
+                    int AbilityCount=1;
+                    string WholeAbilityString = GetCardToRenderReader["ability"].ToString();
+                    string[] AbilityArray = WholeAbilityString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                    AbilityCount = AbilityArray.Length;
+                    //Because the abilities are evenly spaced out, and with the same X value, the Y value they are drawn at is 714 + the amount of pixels each ability gets times
+                    //how many spaces away it is from the first ability at y=714
+                    //That number away from the top is what this variable is for
+                    int AbilityNumber = 0;
+                    foreach(string Ability in AbilityArray)
+                    {                        
+                        AbilityNameFontSize = 24;
+                        AbilityCostFontSize = 18;
+                        FontSize = 16;
+                        string[] AbilitySplit = Ability.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+                        //make the bitmap and graphics
+                        Bitmap AbilityMap = new Bitmap(479, (int)250 / AbilityCount);
+                        Graphics g = Graphics.FromImage(AbilityMap);
+                        //make sure the text looks nice
+                        g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        do
+                        {
+                            //clear the bitmap being drawn on
+                            g.Clear(Color.Transparent);
+                            //start by making the fonts match the new size
+                            AbilityNameFont = new Font("Classic Robot Condensed", AbilityNameFontSize, System.Drawing.FontStyle.Bold, GraphicsUnit.Pixel);
+                            AbilityCostFont = new Font("Classic Robot Condensed", AbilityCostFontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel);
+                            AbilityBodyFont = new Font("Classic Robot Condensed", FontSize, System.Drawing.FontStyle.Regular, GraphicsUnit.Pixel);
+                            //Now draw in the ability title
+                            g.DrawString(AbilitySplit[0], AbilityNameFont,Brushes.Black,0,0);
+                            SizeF NameHeight = g.MeasureString(AbilitySplit[0], AbilityNameFont);
+                            //now make textheight equal the height of the title
+                            TextHeight = (int)NameHeight.Height;
+                            TextWidth = (int)g.MeasureString(AbilitySplit[0], AbilityNameFont).Width;
+                            //Now do the same for the cost but you have to break up the cost word for word so it doesnt overstep its bounds in the textbox
+                            string[] SplitCost = AbilitySplit[1].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string RenderableCostString = "";
+                            foreach(string word in SplitCost)
+                            {
+                                if(g.MeasureString($"{RenderableCostString}{word} ",AbilityCostFont).Width <= 479)
+                                {
+                                    //if the current string + the new word and the following space is less than the allowed width just add it
+                                    RenderableCostString += $"{word} ";
+                                }
+                                else
+                                {
+                                    //if it isnt add a new line and add the word
+                                    string Newline = System.Environment.NewLine;
+                                    RenderableCostString += $"{Newline}{word} ";
+                                }
+                            }
+                            //Now draw in the ability cost
+                            g.DrawString(RenderableCostString, AbilityCostFont, Brushes.Black, 0, TextHeight);
+                            //now add the height of this string to the total text height
+                            TextHeight += (int)g.MeasureString(RenderableCostString, AbilityCostFont).Height;
+                            //and if the text width here is wider than it already is set that width to the new width
+                            TextWidth = Math.Max(TextWidth, (int)g.MeasureString(RenderableCostString, AbilityCostFont).Width);
+                            //Now do the same thing for the effect of the card
+                            string[] SplitEffect = AbilitySplit[2].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            string RenderableEffectString = "";
+                            foreach(string word in SplitEffect)
+                            {
+                                if (g.MeasureString($"{RenderableEffectString}{word} ", AbilityCostFont).Width <= 479)
+                                {
+                                    //if the current string fits the width limitations just add it on
+                                    RenderableEffectString += $"{word} ";
+                                }
+                                else
+                                {
+                                    //if it doesnt add a new line and the
+                                    string Newline = System.Environment.NewLine;
+                                    RenderableEffectString += $"{Newline}{word} ";
+                                }
+                            }
+                            //now draw in the effect text
+                            g.DrawString(RenderableEffectString, AbilityBodyFont, Brushes.Black, 0, TextHeight);
+                            //now update the textwidth and height 
+                            TextHeight += (int)g.MeasureString(RenderableEffectString, AbilityBodyFont).Height;
+                            TextWidth = Math.Max(TextWidth, (int)g.MeasureString(RenderableEffectString, AbilityBodyFont).Height);
+                            //if its too big shrink the fontsizes and try again
+                            if (TextWidth > 479 || TextHeight > 250 / AbilityCount)
+                            {
+                                AbilityNameFontSize--;
+                                AbilityCostFontSize--;
+                                FontSize--;
+                            }
+                        }
+                        while (TextWidth > 479 || TextHeight > 250 / AbilityCount);
+                        //now we have an acceptable sized set of text to draw in a nice drawable bitmap draw it in on the card
+                        using(Graphics graphics = Graphics.FromImage(CardBitmap))
+                        {
+                            //because mathimatical order of operations is weird
+                            int AbilityHeight = 250 / AbilityCount;
+                            AbilityHeight = AbilityHeight * AbilityNumber;
+                            AbilityHeight += 714;
+                            graphics.DrawImageUnscaledAndClipped(AbilityMap, new Rectangle(223, AbilityHeight, 479, TextHeight));
+                        }
+                        //now increment the ability number
+                        AbilityNumber++;
+                    }
+                    //Lastly for the setcode
+                    string Setcode = GetCardToRenderReader["card_code"].ToString();
+                    FontSize = 14;
+                    Font SetCodeFont = new Font("Downlink", FontSize, GraphicsUnit.Pixel);
+                    do
+                    {
+                        Bitmap SetCodeMap = new Bitmap(190, 18);
+                        Graphics g = Graphics.FromImage(SetCodeMap);
+                        //update the font
+                        SetCodeFont = new Font("Downlink", FontSize, GraphicsUnit.Pixel);
+                        SizeF SetCodeSize = g.MeasureString(Setcode, SetCodeFont);
+                        //get the height and width of the text
+                        TextHeight = (int)SetCodeSize.Height;
+                        TextWidth = (int)SetCodeSize.Width;
+                        //if its to big shrink the font size and try again
+                        if (TextHeight > 18 || TextWidth > 190)
+                        {
+                            FontSize--;
+                        }
+                    }
+                    while (TextHeight>18||TextWidth>190);
+                    //now draw the setcode in place
+                    using(Graphics graphics = Graphics.FromImage(CardBitmap))
+                    {
+                        //first set some niceties to make the font look nice
+                        graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        //Now Draw
+                        graphics.DrawString(Setcode, SetCodeFont, Brushes.Black, (int)632 - TextWidth / 2, (int)1027 - TextHeight / 2);
+                    }
                 }
                 return CardBitmap;
             }
             catch(Exception ex)
             {
-                MessageBox.Show($"An Error Occured {ex}");
-                Application.Current.Shutdown();
+                System.Windows.MessageBox.Show($"An Error Occured {ex}");
+                System.Windows.Application.Current.Shutdown();
                 return null;
             }
 
         }
-        
+        public static void ExportCards(string Set, bool Cropped, bool Shrunk)
+        {
+            //first you have to get the directory to save the images to using opendialog because C# doesnt have a folder selecter by default
+            string Filepath = "";
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            {
+                //make sure the file dialog initially opens in the same folder as the application
+                fbd.SelectedPath = System.IO.Directory.GetCurrentDirectory();
+                //show a file file dialog to select a folder to save these cards to
+                DialogResult result = fbd.ShowDialog();
+                if(result== DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    Filepath = fbd.SelectedPath;
+                }
+            }
+            //now the file folder is selected select the whole database of the set to use
+            string ExportCardString = $"SELECT * FROM {Set}";
+            SQLiteCommand ExportCardCommand = new SQLiteCommand(ExportCardString, Globals.GlobalVars.DatabaseConnection);
+            SQLiteDataReader ExportCardReader = ExportCardCommand.ExecuteReader();
+            //now go through each of the cards in the set selected
+            int i = 1;
+            while (ExportCardReader.Read())
+            {
+                //make the card as a bitmap
+                Bitmap card = GenerateCardImage(Set, ExportCardReader["imagestring"].ToString(), i);
+                //now set the subdirectory the cards will be save to
+                string subdirectory = "\\Bleed";
+                //now if you have to crop the image crop it down
+                if(Cropped == true)
+                {
+                    card = card.Clone(new Rectangle(37, 37, 750, 1050), System.Drawing.Imaging.PixelFormat.DontCare);
+                    //change where the card will be saved
+                    subdirectory = "\\Cropped";
+                }
+                if(Shrunk == true)
+                {
+                    //if the image needs to be resized do so now
+                    Rectangle rectangle = new Rectangle(0, 0, 500, 700);
+                    Bitmap resizedimage = new Bitmap(500, 700);
+                    //now set some drawing settings to make sure it looks good
+                    using(Graphics graphics = Graphics.FromImage(resizedimage))
+                    {
+                        //this means the new pixels overwrite the old ones, not mix
+                        graphics.CompositingMode = CompositingMode.SourceCopy;
+                        //dont compress the image colours
+                        graphics.CompositingQuality = CompositingQuality.HighQuality;
+                        //use the best quality scaling algorithm, lower proformance but good
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        //same deal but for something
+                        graphics.SmoothingMode = SmoothingMode.HighQuality;
+                        //if pixels have to be shifted do so at high quality to avoid ghosting
+                        graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        using (ImageAttributes wrapMode = new ImageAttributes())
+                        {
+                            //honestly this i dont understand, only bit of code I dont TODO read about wrap modes
+                            wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                            graphics.DrawImage(card, rectangle, 0, 0, card.Width, card.Height, GraphicsUnit.Pixel, wrapMode);
+                        }
+                        //now make the card match the smaller version
+                        card = resizedimage;
+                        //and change the subdirectory it will be saved to
+                        subdirectory = "\\Vassal";
+                    }
+                }
+                //set some card metadata just because its a good idea for things like inDesign so they know how to draw it
+                card.SetResolution(300, 300);
+                //now save the card to the location specified as its set name and number
+                //now make the directory these will be saved in if it doesnt already exist
+                System.IO.Directory.CreateDirectory($"{Filepath}\\{Set}{subdirectory}");
+                card.Save($"{Filepath}\\{Set}{subdirectory}\\{Set}_{i}.png", ImageFormat.Png);
+            }
+        }
     }
 }
