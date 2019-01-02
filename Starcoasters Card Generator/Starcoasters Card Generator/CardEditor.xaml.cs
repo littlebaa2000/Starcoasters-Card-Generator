@@ -24,19 +24,18 @@ namespace Starcoasters_Card_Generator
     public partial class CardEditor : Window
     {
         //these are varibles the whole window will need
-        public string CurrentSet;
-        public int CardID;
-        public bool CardNew;
+        public string CardsSet;
+        public string CardsCode;
+        public bool IsCardNew;
         //This one is specifically for generating a card code thats displayed on the card
         public string CardCode;
-        public CardEditor(string SendingSet, int UsedID, bool NewCard, string SetCode)
+        public CardEditor(string CardSet, bool NewCard, string CardCode)
         {
             InitializeComponent();
             //set the values of the necessary varibles
-            CurrentSet = SendingSet;
-            CardID = UsedID;
-            CardNew = NewCard;
-            CardCode = SetCode;
+            CardsSet = CardSet;           
+            IsCardNew = NewCard;
+            CardsCode = CardCode;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -59,13 +58,13 @@ namespace Starcoasters_Card_Generator
                         CMB_CardType.Items.Add(item);
                     }
                 }
-                if(CardNew == false)
+                if(IsCardNew == false)
                 {
                     //Needed for passing to the combo box updater
                     string TypeComboIndex = "";
                     //if the card is a pre-existing one thats been brought in from the set list not the add new button
                     //query the database to get the information needed from the index required
-                    string GetCard = $"SELECT * FROM {CurrentSet} WHERE id={CardID}";
+                    string GetCard = $"SELECT * FROM {CardsSet} WHERE card_code='{CardsCode}'";
                     SQLiteCommand GetCardCommand = new SQLiteCommand(GetCard, Globals.GlobalVars.DatabaseConnection);
                     SQLiteDataReader GetCardReader = GetCardCommand.ExecuteReader();
                     //Get the card details out of the reader
@@ -430,36 +429,19 @@ namespace Starcoasters_Card_Generator
                 //now to make an sqlite query and update the table
                 //The query differs depending on if you are updating a card or adding a new one
                 string SaveCardQuery = "";
-                if (CardNew == true)
+                if (IsCardNew == true)
                 {
-                    //just to add consistency to the card code values
-                    string CardIDString = null;
-                    //check values for the ID, adding zeroes as needed
-                    if (CardID < 9)
-                    {
-                        CardIDString = "000" + CardID;
-                    }
-                    else if (CardID < 100)
-                    {
-                        CardIDString = "00" + CardID;
-                    }
-                    else if (CardID < 1000)
-                    {
-                        CardIDString = "0" + CardID;
-                    }
-                    else
-                    {
-                        CardIDString = CardID.ToString();
-                    }
-                    SaveCardQuery = $"INSERT INTO {CurrentSet} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, flavour, imagestring)" +
-                    $"VALUES ('{CardCode}-{CardIDString}', '{CardNamePrimary}', '{CardNameSub}', '{CardCostString}', '{CardHP}', '{CardATK}', '{CardDEF}', '{KeywordsString}', " +
+                    //if the card is new the Card Code that was sent here needs to be written into the table
+                    string NewCardSetCode = CardsCode;
+                    SaveCardQuery = $"INSERT INTO {CardsSet} (card_code, name_primary, name_secondary, cost, hp, atk, def, keywords, ability, flavour, imagestring)" +
+                    $"VALUES ('{NewCardSetCode}', '{CardNamePrimary}', '{CardNameSub}', '{CardCostString}', '{CardHP}', '{CardATK}', '{CardDEF}', '{KeywordsString}', " +
                     $"'{Abilities}', '{FlavourString}', '{FilepathString}')";
                 }
                 else
                 {
-                    SaveCardQuery = $"UPDATE {CurrentSet} SET name_primary = '{CardNamePrimary}', name_secondary = '{CardNameSub}', cost = '{CardCostString}', hp = '{CardHP}', " +
+                    SaveCardQuery = $"UPDATE {CardsSet} SET name_primary = '{CardNamePrimary}', name_secondary = '{CardNameSub}', cost = '{CardCostString}', hp = '{CardHP}', " +
                         $"atk = '{CardATK}', def = '{CardDEF}', keywords = '{KeywordsString}', ability = '{Abilities}', flavour = '{FlavourString}', imagestring =' {FilepathString}'" +
-                        $" WHERE id = {CardID}";
+                        $" WHERE card_code = '{CardsCode}'";
                 }
                 //Now actually execute the query
                 SQLiteCommand SaveCardCommand = new SQLiteCommand(SaveCardQuery, Globals.GlobalVars.DatabaseConnection);
@@ -491,7 +473,7 @@ namespace Starcoasters_Card_Generator
             //Save the card first so the preview is as accurate as possible
             SaveCard();
             //Now get a bitmap generated for the card
-            Bitmap map = Functions.GenerateCardImage(CurrentSet,TBX_ImagePath.Text, CardID);
+            Bitmap map = Functions.GenerateCardImage(CardsSet,TBX_ImagePath.Text, CardsCode);
             //Convert that bitmap to a bitmap source that can be displayed and display it
             BitmapSource preview = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(map.GetHbitmap(), IntPtr.Zero, System.Windows.Int32Rect.Empty, BitmapSizeOptions.FromWidthAndHeight(map.Width, map.Height));
             IMG_CardPreviewer.Source = preview;

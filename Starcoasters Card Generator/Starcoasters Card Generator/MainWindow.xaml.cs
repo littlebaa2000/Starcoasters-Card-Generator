@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.SQLite;
+using System.IO;
 
 namespace Starcoasters_Card_Generator
 {
@@ -70,6 +71,11 @@ namespace Starcoasters_Card_Generator
                     //Extract the set overview from the listview item
                     Classes.SetOverview SetToDelete = (Classes.SetOverview)SelectedItem.Tag;
                     string TableToDelete = SetToDelete.SetName.ToString();
+                    //now if the table being deleted has an index text file associated with it delete that too because its tidy
+                    if (File.Exists(Directory.GetCurrentDirectory() + $"\\{TableToDelete}.txt"))
+                    {
+                        File.Delete(Directory.GetCurrentDirectory() + $"\\{TableToDelete}.txt");
+                    }
                     //Query the table to drop it like its thot
                     string TableDeleteQuery = $"DROP TABLE {TableToDelete}";
                     SQLiteCommand DropTableCommand = new SQLiteCommand(TableDeleteQuery, Globals.GlobalVars.DatabaseConnection);

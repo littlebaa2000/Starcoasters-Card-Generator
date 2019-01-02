@@ -53,7 +53,7 @@ namespace Starcoasters_Card_Generator
                 System.Windows.Application.Current.Shutdown();
             }
         }
-        public static Bitmap GenerateCardImage(string CardSet, string ArtPath, int CardIndex)
+        public static Bitmap GenerateCardImage(string CardSet, string ArtPath, string CardIndex)
         {
             //This will produce and return a bitmap that can either be saved as an image or displayed for preview
             try
@@ -61,6 +61,12 @@ namespace Starcoasters_Card_Generator
                 // first of all A bitmap is needed of the background that everything is being placed on top of
                 //thankfully this is included in the project, by me
                 Bitmap CardBitmap = new Bitmap(System.IO.Directory.GetCurrentDirectory() + "\\CardBackground.png");
+                //now just in case if the file path given is incorrect or the file doesnt exist just return the background
+                if (!File.Exists(ArtPath))
+                {
+                    System.Windows.MessageBox.Show($"The file path for the image at {ArtPath} does not exist or the directory is wrong");
+                    ArtPath = Directory.GetCurrentDirectory() + $"\\PlaceholderArt.png";
+                }
                 //Now because the card artwork may or may not be the correct size manipulate it just a little bit so it fits the 600 x 900 size needed with cropping
                 Bitmap CardArtwork = new Bitmap(ArtPath);
                 if(CardArtwork.Width> 600 && CardArtwork.Height> 900)
@@ -111,7 +117,7 @@ namespace Starcoasters_Card_Generator
                     graphics.DrawImage(CardBoxBitmap, new Rectangle(117, 117, 590, 920));
                 }
                 //Now we need to get the information for the Cards text from the database with a query
-                string GetCardToRenderQuery = $"SELECT * FROM {CardSet} WHERE id={CardIndex}";
+                string GetCardToRenderQuery = $"SELECT * FROM {CardSet} WHERE card_code='{CardIndex}'";
                 SQLiteCommand GetCardToRenderCommand = new SQLiteCommand(GetCardToRenderQuery, Globals.GlobalVars.DatabaseConnection);
                 SQLiteDataReader GetCardToRenderReader = GetCardToRenderCommand.ExecuteReader();
                 //just as a sanity check make sure the reader returned a legitimate value
@@ -562,7 +568,7 @@ namespace Starcoasters_Card_Generator
             while (ExportCardReader.Read())
             {
                 //make the card as a bitmap
-                Bitmap card = GenerateCardImage(Set, ExportCardReader["imagestring"].ToString(), i);
+                Bitmap card = GenerateCardImage(Set, ExportCardReader["imagestring"].ToString(), ExportCardReader["card_code"].ToString());
                 //now set the subdirectory the cards will be save to
                 string subdirectory = "\\Bleed";
                 //now if you have to crop the image crop it down
@@ -606,8 +612,10 @@ namespace Starcoasters_Card_Generator
                 card.SetResolution(300, 300);
                 //now save the card to the location specified as its set name and number
                 //now make the directory these will be saved in if it doesnt already exist
+                //now get the set code to thus name the card with
+                string FileName = ExportCardReader["card_code"].ToString();
                 System.IO.Directory.CreateDirectory($"{Filepath}\\{Set}{subdirectory}");
-                card.Save($"{Filepath}\\{Set}{subdirectory}\\{Set}_{i}.png", ImageFormat.Png);
+                card.Save($"{Filepath}\\{Set}{subdirectory}\\{FileName}.png", ImageFormat.Png);                
                 //Clean up after yourself
                 card.Dispose();
             }

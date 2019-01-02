@@ -57,11 +57,8 @@ namespace Starcoasters_Card_Generator
                 Classes.CardOverview TagCard = (Classes.CardOverview)SelectedItem.Tag;
                 //and get the full set code from it
                 string SetCode = TagCard.CardSetCode;
-                //Now get just the number from the end of this code
-                string[] CodeArray = SetCode.Split('-');
-                int CardArrayPlace = int.Parse(CodeArray[1].ToString());
                 //Now after all of that we have a value to give to the card viewer
-                CardEditor EditorWindow = new CardEditor(SetToView, CardArrayPlace, false, CodeArray[0]);
+                CardEditor EditorWindow = new CardEditor(SetToView, false, SetCode);
                 EditorWindow.ShowDialog();
                 //Make sure this window has the right values once this editor returns
                 UpdateCardList();
@@ -89,6 +86,11 @@ namespace Starcoasters_Card_Generator
                 ListViewItem SelectedItem = (ListViewItem)LIV_CardList.SelectedItem;
                 //Get the card out of the selected items tag
                 Classes.CardOverview CardToDelete = (Classes.CardOverview)SelectedItem.Tag;
+                //now write onto a file in the current directory that this card code is available
+                using(StreamWriter sw = File.AppendText(Directory.GetCurrentDirectory() + $"\\{SetToView}.txt"))
+                {
+                    sw.WriteLine(CardToDelete.CardSetCode);
+                }
                 //Prepare an SQLITE query to delete the card we just selected
                 string DeleteCardQuery = $"DELETE FROM {SetToView} WHERE card_code = '{CardToDelete.CardSetCode}'";
                 //Execute the query
@@ -107,24 +109,44 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_Add_Click(object sender, RoutedEventArgs e)
         {
-            //first of all get the first open id value
-            int OpenID = GetCleanIndex(SetToView);
-            //Execute a query that selects the table so we can gather data from it
-            string GetSetCode = $"SELECT * FROM {SetToView}";
-            SQLiteCommand GetTableCodeCommand = new SQLiteCommand(GetSetCode, Globals.GlobalVars.DatabaseConnection);
-            SQLiteDataReader CodeReader = GetTableCodeCommand.ExecuteReader();
-            //Similiar to what happens in Main Window, extract the card code from it and pass that to the card editor
-            string CardCode = "";
-            if (CodeReader.Read())
+            string CodeToUse = "";
+            //first of all check if there is a file containing unused SetCodes for this set exists, if it does get the first line of it 
+            //and use that for the Code, then delete it from the file obviously as to avoid confusion
+            string UsableIndexFilePath = Directory.GetCurrentDirectory() + $"\\{SetToView}.txt";
+            if (File.Exists(UsableIndexFilePath))
             {
-                string CodeToSplit = CodeReader["card_code"].ToString();
-                string[] SplitCode = CodeToSplit.Split('-');
-                CardCode = SplitCode[0].ToString();
+                //if it does get the whole thing
+                string[] UsableFilestring = File.ReadAllLines(UsableIndexFilePath);
+                //make sure to trim the code down just in case there is a space or something that shouldnt be there
+                CodeToUse = UsableFilestring[0].Trim();
+                //now if the file is only 1 line long simply delete it so the system will go back to generating the codes
+                if(UsableFilestring.Length == 1)
+                {
+                    File.Delete(UsableIndexFilePath);
+                }
+                else
+                {
+                    //now if the file is longer than 1 line
+                    //now write everything thats in the array barring the first line because we used that 
+                    //just make sure that you only write back everything that isnt the first line
+                    for(int i =1; i < UsableFilestring.Length; i++)
+                    {
+                        using(StreamWriter sw = File.AppendText(UsableIndexFilePath))
+                        {
+                            sw.WriteLine(UsableFilestring[i]);
+                        }
+                    }                    
+                }
             }
-            //Now make a new card editor window passing it the set name and the the ID that was just determined and tell it that its a new card
-            CardEditor CardEditor = new CardEditor(SetToView, OpenID, true, CardCode);
-            CardEditor.ShowDialog();
-            //Once the window is done with its thing make sure to update the set viewer list
+            else
+            {
+                //if the file doesnt exist then there are no breaks in the set codes so you will have to make a new one from scratch
+                CodeToUse = GetCleanSetCode(SetToView);
+            }
+            //now make a new card editor with the 
+            CardEditor editor = new CardEditor(SetToView, true, CodeToUse);
+            //now show the new window
+            editor.ShowDialog();
             UpdateCardList();
         }
 
@@ -183,37 +205,45 @@ namespace Starcoasters_Card_Generator
                 MessageBox.Show($"An error occured {ex}");
             }
         }
-        public int GetCleanIndex(string SetName)
+        public string GetCleanSetCode(string SetName)
         {
-            //this will get the earliest unfilled index in the given table
-            bool FilledIndex = true;
-            int i = 1;
-            while(FilledIndex == true)
+            try
             {
-                try
+                //first we need to find out how many elements are in this sets list
+                int NumberOfCards = LIV_CardList.Items.Count + 1;
+                //now we need to append this to a string that is the finalised code
+                //first you need to get the set code prefix from the first item in the list (since there will always be one)
+                ListViewItem FirstItem = (ListViewItem)LIV_CardList.Items.GetItemAt(0);
+                Classes.CardOverview Overview = (Classes.CardOverview)FirstItem.Tag;
+                //now this is the card code that will be appended to 
+                string ReturnCode = Overview.CardSetCode.Split('-')[0];
+                //now we need to add to the set code the number we got earlier, added in with some zeroes as needed
+                if (NumberOfCards < 10)
                 {
-                    //make a query to test for a row at a given index
-                    string CheckID = $"SELECT * FROM {SetName} WHERE id={i}";
-                    SQLiteCommand CheckIDCommand = new SQLiteCommand(CheckID, Globals.GlobalVars.DatabaseConnection);
-                    SQLiteDataReader CheckIDReader = CheckIDCommand.ExecuteReader();
-                    //if the data reader cannot actually go anywhere because the query was empty break the loop
-                    if(CheckIDReader.Read() == false)
-                    {
-                        FilledIndex = false;
-                    }
-                    else
-                    {
-                        //else increment the index and roll this again
-                        i++;
-                    }
+                    ReturnCode += $"-000{NumberOfCards}";
                 }
-                catch(Exception ex)
+                else if (NumberOfCards < 100)
                 {
-                    MessageBox.Show($"An error occured {ex}");
+                    ReturnCode += $"-00{NumberOfCards}";
                 }
+                else if (NumberOfCards < 1000)
+                {
+                    ReturnCode += $"-0{NumberOfCards}";
+                }
+                else
+                {
+                    ReturnCode += $"-{NumberOfCards}";
+                }
+                //now return the newly generated code
+                return ReturnCode;
             }
-            //give them whatever value i ended up being
-            return i;
+            catch(Exception ex)
+            {
+                //oops something went wrong, tell the user and close the application down
+                MessageBox.Show($"An error occured {ex}");
+                Application.Current.Shutdown();
+                return null;
+            }
         }
 
         private void BTN_ExportBleed_Click(object sender, RoutedEventArgs e)

@@ -1,0 +1,35 @@
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\CardTypes.txt
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\KeywordList.txt
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\CardBackground.png
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\CardTextBoxes.png
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\PlaceholderArt.png
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\Starcoasters Card Generator.exe.config
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\Starcoasters Card Generator.exe
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\Starcoasters Card Generator.pdb
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\EntityFramework.dll
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\System.Data.SQLite.dll
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\System.Data.SQLite.EF6.dll
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\System.Data.SQLite.Linq.dll
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\EntityFramework.xml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\System.Data.SQLite.xml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Release\System.Data.SQLite.dll.config
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\CardEditor.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\MainWindow.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\SetCreatorDialogue.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\SetViewer.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\App.g.cs
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator_MarkupCompile.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator_MarkupCompile.lref
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\CardEditor.baml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\MainWindow.baml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\SetCreatorDialogue.baml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\SetViewer.baml
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.g.resources
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters_Card_Generator.Properties.Resources.resources
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.csproj.GenerateResource.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.csproj.CopyComplete
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.exe
+C:\Users\user\Documents\Starcoasters\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Release\Starcoasters Card Generator.pdb
