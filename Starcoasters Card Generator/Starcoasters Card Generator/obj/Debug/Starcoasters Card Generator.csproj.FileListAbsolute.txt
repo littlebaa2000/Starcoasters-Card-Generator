@@ -73,3 +73,6 @@ C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoaste
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.CopyComplete
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckBuilder.g.cs
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckBuilder.baml
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csprojAssemblyReference.cache
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckViewer.g.cs
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckViewer.baml

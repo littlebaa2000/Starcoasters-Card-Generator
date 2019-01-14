@@ -99,6 +99,9 @@
     <Compile Include="DeckBuilder.xaml.cs">
       <DependentUpon>DeckBuilder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeckViewer.xaml.cs">
+      <DependentUpon>DeckViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Functions.cs" />
     <Compile Include="SetCreatorDialogue.xaml.cs">
       <DependentUpon>SetCreatorDialogue.xaml</DependentUpon>
@@ -115,6 +118,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeckBuilder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeckViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

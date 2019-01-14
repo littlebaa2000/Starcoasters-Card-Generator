@@ -172,10 +172,8 @@ namespace Starcoasters_Card_Generator
 
         private void BTN_DeckBuilder_Click(object sender, RoutedEventArgs e)
         {
-            if(LIV_SetList.SelectedItem != null)
-            {
-
-            }
+            DeckBuilder deckBuilder = new DeckBuilder();
+            deckBuilder.ShowDialog();
         }
     }
 }

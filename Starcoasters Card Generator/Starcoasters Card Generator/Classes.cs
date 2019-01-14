@@ -71,5 +71,11 @@ namespace Starcoasters_Card_Generator
             //Cards set number
             public string CardCode { get; set; }
         }
+        public class Deck
+        {
+            public string DeckName { get; set; }
+            public int CardCount { get; set; }
+            public List<CardDetail> Cards {get;set;}
+        }
     }
 }
