@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\App.xaml
-5-1346926876
+61144796292
 
-16-1436768166
+1784363561
 21386054857
-BattleWindow.xaml;CardEditor.xaml;MainWindow.xaml;SetCreatorDialogue.xaml;SetViewer.xaml;
+BattleWindow.xaml;CardEditor.xaml;DeckBuilder.xaml;MainWindow.xaml;SetCreatorDialogue.xaml;SetViewer.xaml;
 
-False
+True
 

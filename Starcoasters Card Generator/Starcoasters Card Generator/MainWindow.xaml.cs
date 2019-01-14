@@ -163,5 +163,19 @@ namespace Starcoasters_Card_Generator
             }
 
         }
+
+        private void BTN_Battle_Click(object sender, RoutedEventArgs e)
+        {
+            BattleWindow battleWindow = new BattleWindow();
+            battleWindow.Show();
+        }
+
+        private void BTN_DeckBuilder_Click(object sender, RoutedEventArgs e)
+        {
+            if(LIV_SetList.SelectedItem != null)
+            {
+
+            }
+        }
     }
 }

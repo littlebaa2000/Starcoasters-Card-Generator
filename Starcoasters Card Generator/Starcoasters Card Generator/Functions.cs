@@ -53,6 +53,13 @@ namespace Starcoasters_Card_Generator
                 System.Windows.Application.Current.Shutdown();
             }
         }
+        /// <summary>
+        /// This will produce and return a bitmap that can either be saved as an image or displayed for preview
+        /// </summary>
+        /// <param name="CardSet">The Card Set to use</param>
+        /// <param name="ArtPath">The Path to the card image</param>
+        /// <param name="CardIndex">The Index asociated with the card you wish to generage</param>
+        /// <returns></returns>
         public static Bitmap GenerateCardImage(string CardSet, string ArtPath, string CardIndex)
         {
             //This will produce and return a bitmap that can either be saved as an image or displayed for preview

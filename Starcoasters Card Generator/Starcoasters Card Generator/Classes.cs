@@ -8,14 +8,18 @@ namespace Starcoasters_Card_Generator
 {
     class Classes
     {
-        //This is the template for an ability 
+        /// <summary>
+        /// This is the template for an ability
+        /// </summary>
         public class Ability
         {
             public string AbilityName { get; set; }
             public string AbilityTrigger { get; set; }
             public string AbilityEffect { get; set; }
         }
-        //These are classes I will use for different objects in this program
+        /// <summary>
+        /// These are classes I will use for different objects in this program
+        /// </summary>
         public class SetOverview
         {
             //This Is Used On The Main Window To Display Information Regarding A Given Sets Name Code And Number Of Cards
@@ -23,7 +27,9 @@ namespace Starcoasters_Card_Generator
             public string SetCode { get; set; }
             public int SetCount { get; set; }
         }
-        
+        /// <summary>
+        /// This is what is used to show an overview of cards on the SetList window
+        /// </summary>
         public class CardOverview
         {
             //This is what is used to show an overview of cards on the SetList window
@@ -42,6 +48,9 @@ namespace Starcoasters_Card_Generator
             //The cards set code
             public string CardSetCode { get; set; }
         }
+        /// <summary>
+        /// This One Will Hold The Details Of A Card While It Is Being Modified Or Saved To The Database
+        /// </summary>
         public class CardDetail
         {
             // This One Will Hold The Details Of A Card While It Is Being Modified Or Saved To The Database

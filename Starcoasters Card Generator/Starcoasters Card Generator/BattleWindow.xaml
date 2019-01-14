@@ -5,22 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Starcoasters_Card_Generator"
         mc:Ignorable="d"
-        Title="BattleWindow" Height="300" Width="472.932">
+        Title="BattleWindow" Height="822.271" Width="1241.932">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="0.2*"/>
             <RowDefinition/>
-            <RowDefinition Height="0.4*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="7" x:Name="Grid_Current_Hand">
+            
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="6" x:Name="Grid_Current_Extra">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="5" x:Name="Grid_Current_Backrow">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="4" x:Name="Grid_Current_Frontrow">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="3" x:Name="Grid_Other_Frontrow">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2" x:Name="Grid_Other_Backrow">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" x:Name="Grid_Other_Extra">
+
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0" x:Name="Grid_Other_Hand">
+
+        </Grid>
+        <Image Grid.Column="0" Grid.Row="0" Grid.RowSpan="7"/>
     </Grid>
 </Window>

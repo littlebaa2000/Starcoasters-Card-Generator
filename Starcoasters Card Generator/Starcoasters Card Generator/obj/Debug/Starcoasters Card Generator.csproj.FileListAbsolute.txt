@@ -42,8 +42,6 @@ C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoaste
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe.config
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.pdb
-C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe.CodeAnalysisLog.xml
-C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\Starcoasters Card Generator.exe.lastcodeanalysissucceeded
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\EntityFramework.dll
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\System.Data.SQLite.dll
@@ -53,7 +51,6 @@ C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoaste
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\System.Data.SQLite.xml
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\bin\Debug\System.Data.SQLite.dll.config
-C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csprojResolveAssemblyReference.cache
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\BattleWindow.g.cs
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\CardEditor.g.cs
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\MainWindow.g.cs
@@ -72,3 +69,7 @@ C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoaste
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.GenerateResource.Cache
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.exe
 C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.pdb
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.CoreCompileInputs.cache
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\Starcoasters Card Generator.csproj.CopyComplete
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckBuilder.g.cs
+C:\Users\zacha\Source\Repos\littlebaa2000\Starcoasters-Card-Generator\Starcoasters Card Generator\Starcoasters Card Generator\obj\Debug\DeckBuilder.baml
